@@ -50,8 +50,8 @@ class CommentsFixture extends TestFixture
             'name' => 'Lorem ipsum dolor sit amet',
             'content' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
             'user_id' => 1,
-            'created' => '2016-11-07 13:09:06',
-            'modified' => '2016-11-07 13:09:06'
+            'created' => '2016-11-07 15:25:38',
+            'modified' => '2016-11-07 15:25:38'
         ],
     ];
 }

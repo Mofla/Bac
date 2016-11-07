@@ -81,10 +81,15 @@ class UsersTable extends Table
         $validator
             ->email('email')
             ->requirePresence('email', 'create')
-            ->notEmpty('email');
+            ->notEmpty('email')
+            ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->allowEmpty('picture_url');
+
+        $validator
+            ->integer('is_active')
+            ->allowEmpty('is_active');
 
         return $validator;
     }

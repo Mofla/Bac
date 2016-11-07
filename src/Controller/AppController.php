@@ -43,7 +43,21 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'loginAction' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            'authError' => 'Accès interdit.',
+            'authenticate' => [
+                'Form' => [
+                    'fields' => ['username' => 'email']
+                ]
+            ],
+            'storage' => 'Session'
+        ]);
     }
+
 
     /**
      * Before render callback.
@@ -58,5 +72,12 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+        // changement du layout
+        $this->viewBuilder()->layout('custom');
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['display','home','login','logout','register','retrieve']);
     }
 }

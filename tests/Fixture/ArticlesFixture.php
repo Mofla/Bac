@@ -52,8 +52,8 @@ class ArticlesFixture extends TestFixture
             'content' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
             'state' => 1,
             'tag_id' => 1,
-            'created' => '2016-11-07 13:08:07',
-            'modified' => '2016-11-07 13:08:07'
+            'created' => '2016-11-07 15:25:31',
+            'modified' => '2016-11-07 15:25:31'
         ],
     ];
 }

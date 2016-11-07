@@ -5,9 +5,10 @@ CREATE TABLE `users`
   firstname VARCHAR(60),
   lastname VARCHAR(80),
   password VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
   picture_url VARCHAR(255) DEFAULT 'default.jpg',
   role_id INT NOT NULL DEFAULT '2',
+  is_active TINYINT DEFAULT 0,
   created DATETIME,
   modified DATETIME
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;

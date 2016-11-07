@@ -51,10 +51,16 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     //$routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
     $routes->connect('/', ['controller' => 'Articles', 'action' => 'index']);
+
+    $routes->connect('connexion/',['controller' => 'Users','action' => 'login','prefix' => false]);
+    $routes->connect('/deconnexion/',['controller' => 'Users','action' => 'logout']);
+    $routes->connect('/inscription/',['controller' => 'Users','action' => 'register']);
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
      */
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
+
+
 
     /**
      * Connect catchall routes for all controllers.

@@ -1,0 +1,6 @@
+/.idea/*
+/.idea/workspace.xml
+/vendor/*
+/config/app.php
+/tmp/*
+/logs/*

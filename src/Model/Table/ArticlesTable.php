@@ -9,6 +9,7 @@ use Cake\Validation\Validator;
 /**
  * Articles Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $Users
  * @property \Cake\ORM\Association\BelongsTo $Tags
  * @property \Cake\ORM\Association\HasMany $ArticleComments
  *
@@ -41,6 +42,10 @@ class ArticlesTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER'
+        ]);
         $this->belongsTo('Tags', [
             'foreignKey' => 'tag_id',
             'joinType' => 'INNER'
@@ -91,6 +96,7 @@ class ArticlesTable extends Table
     {
         $rules->add($rules->isUnique(['id']));
         $rules->add($rules->isUnique(['name']));
+        $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['tag_id'], 'Tags'));
 
         return $rules;

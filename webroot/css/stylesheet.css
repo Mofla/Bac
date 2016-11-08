@@ -1,3 +1,8 @@
+body{
+    background-color: #1d7690;
+    background-color: rgba(29,118,144,0.2);
+}
+
 /*
     custom navbar
 */
@@ -73,5 +78,53 @@
 }
 
 /*
+* Panels
+*/
+.panel{
+    border: 1px solid #1d1d1d;
+}
+
+.panel-default > .panel-heading-articles {
+    background: #1d1d1d;
+    color: #fff;
+}
+
+.panel-tags{
+    background-color: #e3e3e3;
+    padding:2px 4px;
+    font-size: 0.8em;
+}
+
+.panel-default > .panel-footer-articles {
+    background-color: #a3a3a3;
+}
+
+.panel-tags-text-left
+{
+    display: inline-block;
+}
+
+.panel-tags-text-right
+{
+    float: right;
+    display: inline-block;
+}
+
+.boxshadow
+{
+    box-shadow:0 0 4px #1d1d1d;
+}
+
+.well
+{
+    border:1px solid #1d1d1d;
+}
+
+/*
 *
 */
+
+.img-articles
+{
+    border:1px solid #1d1d1d;
+}

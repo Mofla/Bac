@@ -19,7 +19,7 @@ class ArticlesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Tags']
+            'contain' => ['Tags','Users']
         ];
         $articles = $this->paginate($this->Articles);
 

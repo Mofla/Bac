@@ -56,6 +56,7 @@ class AppController extends Controller
             ],
             'storage' => 'Session'
         ]);
+        $this->loadComponent('Upload');
     }
 
 

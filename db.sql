@@ -26,6 +26,7 @@ CREATE TABLE `articles`
   name VARCHAR(100) UNIQUE NOT NULL,
   content TEXT NOT NULL,
   state TINYINT NOT NULL DEFAULT 0,
+  user_id INT NOT NULL,
   tag_id INT NOT NULL,
   created DATETIME,
   modified DATETIME
@@ -59,6 +60,9 @@ ADD CONSTRAINT fk_role_id FOREIGN KEY(role_id) REFERENCES roles(id);
 ALTER TABLE articles
 ADD CONSTRAINT fk_tag_id FOREIGN KEY(tag_id) REFERENCES tags(id);
 
+ALTER TABLE articles
+ADD CONSTRAINT fk_art_user_id FOREIGN KEY(user_id) REFERENCES users(id);
+
 ALTER TABLE comments
 ADD CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(id);
 
@@ -70,6 +74,9 @@ ADD CONSTRAINT fk_comment_id FOREIGN KEY(comment_id) REFERENCES comments(id);
 
 INSERT INTO roles (id, name, description) VALUES (1,'Administrateur','Possède tous les droits.');
 INSERT INTO roles (id, name, description) VALUES (2,'Utilisateur','Peut voir les articles et poster des commentaires.');
+
+INSERT INTO `users` (`id`, `username`, `firstname`, `lastname`, `password`, `email`, `picture_url`, `role_id`, `is_active`, `created`, `modified`) VALUES
+(1, 'Mofla', 'Florent', 'Maillard', '$2y$10$CvofBeAl4lAnCuWpezsWI.LYltz.ICqYc0CsdRiFXiXQQ/s6hq7lW', 'florent.maillard.pro@gmail.com', '10013151001478615494.png', 1, 0, '2016-11-07 15:31:13', '2016-11-08 14:31:34');
 
 INSERT INTO tags (id, name) VALUES (1,'Cinéma');
 INSERT INTO tags (id, name) VALUES (2,'Littérature');

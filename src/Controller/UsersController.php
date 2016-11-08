@@ -12,6 +12,39 @@ use Cake\Event\Event;
 class UsersController extends AppController
 {
 
+    public function view($id = null)
+    {
+        $user = $this->Users->get($id);
+
+        $this->set(compact('user'));
+    }
+
+    public function edit($id = null)
+    {
+        $user = $this->Users->get($id);
+        if($this->request->is(['patch','put','post']))
+        {
+            if(!empty($this->request->data['picture_url']['name']))
+            {
+                $this->request->data['picture_url'] = $this->Upload->uploadImg($this->request->data['picture_url'],[
+                    'rename' => [
+                        'id' => $this->Auth->User('id')
+                    ]
+                ]);
+                $user = $this->Users->patchEntity($user,$this->request->data);
+                if($this->Users->save($user))
+                {
+                    $this->Flash->success('Profil correctement édité.');
+                    return $this->redirect($this->referer());
+                }
+                else {
+                    $this->Flash->error('Edition impossible.');
+                }
+            }
+        }
+        $this->set(compact('user'));
+    }
+
     public function login()
     {
         if ($this->request->is('post')) {

@@ -34,29 +34,17 @@ $cakeDescription = 'Blog';
     <?= $this->Html->css('bootstrap-theme.min.css') ?>
     <?= $this->Html->css('stylesheet.css') ?>
 
-    <?= $this->Html->script('bootstrap.min.js') ?>
     <?= $this->Html->script('jquery.js') ?>
+    <?= $this->Html->script('bootstrap.js') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">WebSiteName</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Page 1</a></li>
-            <li><a href="#">Page 2</a></li>
-            <li><a href="#">Page 3</a></li>
-        </ul>
-    </div>
-</nav>
-<?= $this->Flash->render() ?>
+<?= $this->cell('Nav') ?>
 <div class="container-fluid">
+    <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>
 </div>
 <footer>

@@ -1,0 +1,112 @@
+<?php
+namespace App\Controller\Component;
+use Cake\Controller\Component;
+
+class UploadComponent extends Component
+{
+    public function uploadImg($upload,$options = [])
+    {
+        $extensions = ['jpg','jpeg','png','gif'];
+        // define type
+        $file_extension = explode('/',$upload['type'])[1];
+        if(!in_array($file_extension,$extensions))
+        {
+            return $file_newName = 'default.jpg';
+        }
+        // define new file name
+        if(isset($options['rename']))
+        {
+            $file_newName = $options['rename']['id'].$this->renameByTimestamp().'.'.$file_extension;
+        }
+        else{
+            $file_newName = $upload['name'].'.'.$file_extension;
+        }
+        // resize
+        if(isset($options['resize']))
+        {
+
+        }
+        // upload
+        $path = WWW_ROOT . '/img/avatars/original/' . $file_newName;
+        $first_copy = $upload;
+        if(move_uploaded_file($upload['tmp_name'],$path))
+        {
+            $path = WWW_ROOT . '/img/avatars/original/' . $file_newName;
+            // resize as 200x200
+            $new_path = WWW_ROOT . '/img/avatars/200x200/' . $file_newName;
+            $this->resize($path,$file_extension,$new_path,200);
+            //resize as 40x40
+            $new_path = WWW_ROOT . '/img/avatars/40x40/' . $file_newName;
+            $this->resize($path,$file_extension,$new_path,40);
+            return $file_newName;
+        }
+        else {
+            return 'default.jpg';
+        }
+    }
+    public function deleteImg($image)
+    {
+        $files = ['30x30','200x200','original'];
+        foreach($files as $file)
+        {
+            $path = WWW_ROOT . '/img/avatars/'.$file.'/' . $image;
+            @unlink($path);
+        }
+    }
+
+    function renameByTimestamp()
+    {
+        $time = microtime();
+        $time = str_replace(' ','',str_replace('.','',$time));
+        return $time;
+    }
+
+    function resize($file,$extension,$path, $newSize) {
+
+        // define type of image
+        switch ($extension)
+        {
+            case('jpg'):
+                $source = imagecreatefromjpeg($file);
+                break;
+            case('jpeg'):
+                $source = imagecreatefromjpeg($file);
+                break;
+            case('png'):
+                $source = imagecreatefrompng($file);
+                break;
+            case('gif'):
+                $source = imagecreatefromgif($file);
+                break;
+        }
+        $width = imagesx($source);
+        $height = imagesy($source);
+
+        // calculate ratio
+        $new_height = floor($height * ($newSize / $width));
+
+        // it create a new virtual image
+        $new_image = imagecreatetruecolor($newSize, $new_height);
+
+        // make a copy with new sizes from the virtual image
+        imagecopyresampled($new_image, $source, 0, 0, 0, 0, $newSize, $new_height, $width, $height);
+
+        // create image according to its extension
+        switch ($extension)
+        {
+            case('jpg'):
+                imagejpeg($new_image, $path);
+                break;
+            case('jpeg'):
+                imagejpeg($new_image, $path);
+                break;
+            case('png'):
+                imagepng($new_image,$path);
+                break;
+            case('gif'):
+                imagegif($new_image,$path);
+                break;
+        }
+
+    }
+}

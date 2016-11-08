@@ -10,6 +10,7 @@ use Cake\ORM\Entity;
  * @property string $name
  * @property string $content
  * @property int $state
+ * @property int $user_id
  * @property int $tag_id
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified

@@ -51,6 +51,7 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     //$routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
     $routes->connect('/', ['controller' => 'Articles', 'action' => 'index']);
+    $routes->connect('/:tag', ['controller' => 'Articles', 'action' => 'index'],['pass' => '[a-zA-Z0-9]+','pass'=>['tag']]);
 
     $routes->connect('connexion/',['controller' => 'Users','action' => 'login','prefix' => false]);
     $routes->connect('/deconnexion/',['controller' => 'Users','action' => 'logout']);

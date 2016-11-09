@@ -22,27 +22,36 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = $this->Users->get($id);
-        if($this->request->is(['patch','put','post']))
+        if($this->request->is(['patch','post','put']))
         {
-            if(!empty($this->request->data['picture_url']['name']))
+            if($this->request->data['picture_url']['name'])
             {
+                $image = $user->picture_url;
+                if($image !== 'default.jpg')
+                {
+                    $this->Upload->deleteImg($image);
+                }
                 $this->request->data['picture_url'] = $this->Upload->uploadImg($this->request->data['picture_url'],[
                     'rename' => [
                         'id' => $this->Auth->User('id')
                     ]
                 ]);
-                $user = $this->Users->patchEntity($user,$this->request->data);
-                if($this->Users->save($user))
-                {
-                    $this->Flash->success('Profil correctement édité.');
-                    return $this->redirect($this->referer());
-                }
-                else {
-                    $this->Flash->error('Edition impossible.');
-                }
+            }
+            else {
+                unset($this->request->data['picture_url']);
+            }
+            $user = $this->Users->patchEntity($user,$this->request->data);
+            if($this->Users->save($user))
+            {
+                $this->Flash->success('Profil correctement édité.');
+                return $this->redirect($this->referer());
+            }
+            else {
+                $this->Flash->error('Edition impossible.');
             }
         }
         $this->set(compact('user'));
+        $this->set('_serialize',['user']);
     }
 
     public function login()

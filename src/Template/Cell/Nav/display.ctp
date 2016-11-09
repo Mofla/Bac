@@ -4,13 +4,13 @@
             <a class="navbar-brand" href="#">Blog de Mofla</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><?= $this->Html->link('Accueil',['controller' => 'Articles','action' => 'index','prefix' => false]) ?></li>
+            <li><?= $this->Html->link('<span class="glyphicon glyphicon-home"></span> Accueil',['controller' => 'Articles','action' => 'index','prefix' => false],['escape' => false]) ?></li>
             <?php if($is_admin): ?>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Gestion
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-th"></span> Gestion
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a><b>Articles</b></a></li>
+                        <li><a class="dropdown-titles"><b>Articles</b></a></li>
                         <li role="separator" class="divider"></li>
                         <li><?= $this->Html->link('Gérer',[
                             'controller' => 'Articles',
@@ -23,7 +23,7 @@
                                 'prefix' => 'admin'
                             ]) ?></li>
                         <li role="separator" class="divider"></li>
-                        <li><a><b>Utilisateurs</b></a></li>
+                        <li><a class="dropdown-titles"><b>Utilisateurs</b></a></li>
                         <li role="separator" class="divider"></li>
                         <li><?= $this->Html->link('Gérer',[
                                 'controller' => 'Users',
@@ -41,8 +41,6 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Mon Profil
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a>Actions</a></li>
-                        <li role="separator" class="divider"></li>
                         <li><?= $this->Html->link('Voir',['controller' => 'Users','action' => 'view','prefix' => false,$user_id],['escape' => false]) ?></li>
                         <li><?= $this->Html->link('Editer',['controller' => 'Users','action' => 'edit','prefix' => false,$user_id],['escape' => false]) ?></li>
                     </ul>

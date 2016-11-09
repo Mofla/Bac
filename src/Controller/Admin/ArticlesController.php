@@ -16,12 +16,12 @@ class ArticlesController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
+    public function index($state = 1)
     {
         $this->paginate = [
             'contain' => ['Tags']
         ];
-        $articles = $this->paginate($this->Articles);
+        $articles = $this->paginate($this->Articles->find()->where(['state' => $state]));
 
         $this->set(compact('articles'));
         $this->set('_serialize', ['articles']);
@@ -37,7 +37,7 @@ class ArticlesController extends AppController
     public function view($id = null)
     {
         $article = $this->Articles->get($id, [
-            'contain' => ['Tags', 'ArticleComments']
+            'contain' => ['Tags', 'ArticleComments','Users']
         ]);
 
         $this->set('article', $article);
@@ -110,6 +110,53 @@ class ArticlesController extends AppController
             $this->Flash->success(__('The article has been deleted.'));
         } else {
             $this->Flash->error(__('The article could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect(['action' => 'index']);
+    }
+
+    public function publish($id = null)
+    {
+        $this->request->allowMethod('post');
+        $article = $this->Articles->get($id);
+        switch ($article->state)
+        {
+            case 0:
+                $data['state'] = 1;
+                break;
+            case 1:
+                $data['state'] = 0;
+                break;
+            case 2:
+                $data['state'] = 1;
+        }
+        $article = $this->Articles->patchEntity($article,$data);
+        if($this->Articles->save($article))
+        {
+            $this->Flash->success('Changement effectué');
+        }
+        else
+        {
+            $this->Flash->error('Changement non effectué');
+        }
+
+        return $this->redirect(['action' => 'index']);
+
+    }
+
+    public function retire($id = null)
+    {
+        $this->request->allowMethod('post');
+        $article = $this->Articles->get($id);
+        $data['state'] = 2;
+        $article = $this->Articles->patchEntity($article,$data);
+        if($this->Articles->save($article))
+        {
+            $this->Flash->success('Changement effectué');
+        }
+        else
+        {
+            $this->Flash->error('Changement non effectué');
         }
 
         return $this->redirect(['action' => 'index']);

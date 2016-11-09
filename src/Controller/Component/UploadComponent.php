@@ -1,4 +1,11 @@
 <?php
+/**
+ * Component upload
+ * Modified : 8/11/16
+ * Creator: Mofla
+ * Github: https://github.com/Mofla
+ *
+ */
 namespace App\Controller\Component;
 use Cake\Controller\Component;
 
@@ -46,7 +53,7 @@ class UploadComponent extends Component
     }
     public function deleteImg($image)
     {
-        $files = ['30x30','200x200','original'];
+        $files = ['40x40','200x200','original'];
         foreach($files as $file)
         {
             $path = WWW_ROOT . '/img/avatars/'.$file.'/' . $image;
@@ -87,6 +94,9 @@ class UploadComponent extends Component
 
         // it create a new virtual image
         $new_image = imagecreatetruecolor($newSize, $new_height);
+        // keep transparency
+        imagealphablending( $new_image, false );
+        imagesavealpha( $new_image, true );
 
         // make a copy with new sizes from the virtual image
         imagecopyresampled($new_image, $source, 0, 0, 0, 0, $newSize, $new_height, $width, $height);
@@ -107,6 +117,11 @@ class UploadComponent extends Component
                 imagegif($new_image,$path);
                 break;
         }
+
+    }
+
+    function rename()
+    {
 
     }
 }

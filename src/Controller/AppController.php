@@ -54,9 +54,25 @@ class AppController extends Controller
                     'fields' => ['username' => 'email']
                 ]
             ],
-            'storage' => 'Session'
+            'storage' => 'Session',
+            'authorize' => 'Controller'
         ]);
         $this->loadComponent('Upload');
+    }
+
+    public function isAuthorized($user=null)
+    {
+        if($this->Auth->User('role_id'))
+        {
+            return true;
+        }
+
+        if($this->request->action === 'edit')
+        {
+            return true;
+        }
+
+        return true;
     }
 
 

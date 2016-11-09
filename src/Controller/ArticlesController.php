@@ -16,12 +16,19 @@ class ArticlesController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
+    public function index($id = null)
     {
         $this->paginate = [
             'contain' => ['Tags','Users']
         ];
-        $articles = $this->paginate($this->Articles);
+        if($id != null)
+        {
+            $articles = $this->paginate($this->Articles->find()->where(['Tags.id' => $id,'state' => 1]));
+        }
+        else {
+            $articles = $this->paginate($this->Articles->find()->where(['state' => 1]));
+        }
+
 
         $this->set(compact('articles'));
         $this->set('_serialize', ['articles']);
@@ -37,7 +44,7 @@ class ArticlesController extends AppController
     public function view($id = null)
     {
         $article = $this->Articles->get($id, [
-            'contain' => ['Tags', 'ArticleComments']
+            'contain' => ['Tags', 'ArticleComments','Users']
         ]);
 
         $this->set('article', $article);

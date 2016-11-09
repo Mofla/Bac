@@ -96,7 +96,9 @@ body{
 }
 
 .panel-default > .panel-footer-articles {
-    background-color: #a3a3a3;
+    background-color: #f1f1f1;
+    line-height: 40px;
+    vertical-align: middle;
 }
 
 .panel-tags-text-left
@@ -127,4 +129,34 @@ body{
 .img-articles
 {
     border:1px solid #1d1d1d;
+}
+
+.dropdown-titles
+{
+     color: #787878;
+}
+
+
+/*
+*   Tags
+*/
+
+.list-group-item-title
+{
+    background: #1d1d1d;
+    color: #fff;
+}
+
+.list-group-item-separator
+{
+    background-color: rgba(10,10,10,0.2);
+}
+
+/*
+* Texts
+*/
+
+.text-shadow
+{
+    text-shadow: 0 0 1px #0f0f0f;
 }

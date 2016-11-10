@@ -3,6 +3,9 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\Mailer\Email;
+use Cake\I18n\Time;
+
 
 /**
  * Users Controller
@@ -11,15 +14,33 @@ use Cake\Event\Event;
  */
 class UsersController extends AppController
 {
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['view','validate']);
+        return parent::beforeFilter($event);
+    }
+
+    public function isAuthorized($user)
+    {
+        if (in_array($this->request->action, ['edit']))
+        {
+            $userId = (int)$this->request->params['pass'][0];
+            if ($userId === $user['id']) {
+                return true;
+            }
+        }
+
+        return parent::isAuthorized($user);
+    }
 
     public function view($id = null)
     {
-        $user = $this->Users->get($id);
+        $user = $this->Users->get($id,['contain' => ['Comments','Roles']]);
 
         $this->set(compact('user'));
     }
 
-    public function edit($id = null)
+    public function edit($id = null,$username = null)
     {
         $user = $this->Users->get($id);
         if($this->request->is(['patch','post','put']))
@@ -58,16 +79,33 @@ class UsersController extends AppController
     {
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
-            if ($user) {
-                $this->Auth->setUser($user);
-                return $this->redirect(['controller' => 'Articles','action' => 'index']);
+            if($user)
+            {
+                if ($user['is_active']) {
+                    $this->Auth->setUser($user);
+                    return $this->redirect(['controller' => 'Articles','action' => 'index']);
+                }
+                else {
+                    unset($user);
+                    $this->Flash->error('Le compte non validé');
+                }
             }
-            $this->Flash->error('Identifiant(s) invalide(s)');
+            else {
+                $this->Flash->error('Identifiant(s) invalide(s)');
+            }
+
         }
     }
 
     public function logout()
     {
+        $now = Time::now();
+        $id = $this->Auth->User('id');
+        $user = $this->Users->get($id);
+        $data['last_time'] = $now;
+        $user = $this->Users->patchEntity($user,$data);
+        $this->Users->save($user);
+        $this->request->session()->destroy();
         return $this->redirect(['action' => 'login']);
     }
 
@@ -76,10 +114,18 @@ class UsersController extends AppController
         $users = $this->Users->newEntity();
         if($this->request->is('post'))
         {
-            debug($this->request->data);
             $users = $this->Users->patchEntity($users,$this->request->data);
             if($this->Users->save($users))
             {
+
+                $email = new Email();
+                $email->viewVars(['users' => $users])
+                    ->template('welcome')
+                    ->emailFormat('html')
+                    ->to($users->email)
+                    ->from('administrateur@blogdemofla.fr')
+                    ->send();
+
                 $this->Flash->success('Un mail vous a été envoyé.');
                 return $this->redirect(['action' => 'login']);
             }
@@ -96,10 +142,30 @@ class UsersController extends AppController
 
     }
 
-    public function beforeFilter(Event $event)
+    public function validate($email=null)
     {
-        return parent::beforeFilter($event);
-        $this->Auth->allow(['login','logout','register','retrieve']);
+        $users = $this->Users->find()->where(['email' => $email])->first();
+        if(!empty($users))
+        {
+            if(!$users->is_active)
+            {
+                $data['is_active'] = 1;
+                $users = $this->Users->patchEntity($users,$data);
+                if($this->Users->save($users))
+                {
+                    $this->Flash->success('Ce compte est maintenant actif.');
+
+                }
+                else {
+                    $this->Flash->error('Ce compte ne peut pas être validé.');
+
+                }
+            }
+            else {
+                $this->Flash->error('Ce compte est déjà actif.');
+            }
+        }
     }
+
 
 }

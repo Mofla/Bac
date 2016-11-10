@@ -16,7 +16,7 @@
                     </div>
                     <div class="panel-tags-text-right">
                         Catégorie :
-                        <?= $this->Html->link(h($article->tag->name),['action' => 'index',h($article->tag->name)]) ?>
+                        <?= $this->Html->link(h($article->tag->name),['action' => 'index',$article->tag->id,toUrl(h($article->tag->name))]) ?>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -30,8 +30,8 @@
                     <!-- infos créateur -->
                     <div class="row">
                         <div class="col-xs-12">
-                            <?= $this->Html->image('avatars/40x40/'.$article->user->picture_url,['class' => 'img-circle img-articles']) ?>
-                            Article publié par <?= $this->Html->link($article->user->username,['controller' => 'Users','action' => 'view','prefix' => false,$article->user->id]) ?>
+                            <?= $this->Html->image('avatars/40x40/'.h($article->user->picture_url),['class' => 'img-circle img-articles']) ?>
+                            Article publié par <?= $this->Html->link(h($article->user->username),['controller' => 'Users','action' => 'view','prefix' => false,$article->user->id,toUrl(h($article->user->username))]) ?>
                         </div>
                     </div>
                 </div>

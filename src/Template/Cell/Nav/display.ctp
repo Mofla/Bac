@@ -41,8 +41,8 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Mon Profil
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><?= $this->Html->link('Voir',['controller' => 'Users','action' => 'view','prefix' => false,$user_id],['escape' => false]) ?></li>
-                        <li><?= $this->Html->link('Editer',['controller' => 'Users','action' => 'edit','prefix' => false,$user_id],['escape' => false]) ?></li>
+                        <li><?= $this->Html->link('Voir',['controller' => 'Users','action' => 'view','prefix' => false,$user_id,$username],['escape' => false]) ?></li>
+                        <li><?= $this->Html->link('Editer',['controller' => 'Users','action' => 'edit','prefix' => false,$user_id,$username],['escape' => false]) ?></li>
                     </ul>
                 </li>
                 <li><?= $this->Html->link('<span class="glyphicon glyphicon-log-out"></span> Se déconnecter',['controller' => 'Users','action' => 'logout','prefix' => false],['escape' => false]) ?></li>
@@ -53,3 +53,20 @@
         </ul>
     </div>
 </nav>
+<div class="breadcrumb">
+    <?php
+        $replace = [
+            'admin' => 'Administration',
+            'Articles' => 'Articles',
+            'Comments' => 'Commentaires',
+            'Tags' => 'Catégories',
+            'Users' => 'Utilisateurs'
+        ];
+    ?>
+
+    <?php if(isset($this->request->prefix)): ?>
+        <?= $this->Html->link($replace[$this->request->prefix],['controller' => $this->request->controller,'action' => 'index','prefix' => $this->request->prefix]) ?>
+        /
+    <?php endif; ?>
+    <?= $this->Html->link($replace[$this->request->controller],['controller' => $this->request->controller,'action' => 'index']) ?>
+</div>

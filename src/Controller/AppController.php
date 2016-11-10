@@ -60,19 +60,19 @@ class AppController extends Controller
         $this->loadComponent('Upload');
     }
 
-    public function isAuthorized($user=null)
+    public function isAuthorized($user)
     {
-        if($this->Auth->User('role_id'))
+        if($this->request->prefix === 'admin' && $this->Auth->User('role_id') === 1)
         {
             return true;
         }
 
-        if($this->request->action === 'edit')
+        if($this->Auth->User('role_id') === 1)
         {
             return true;
         }
 
-        return true;
+        return false;
     }
 
 

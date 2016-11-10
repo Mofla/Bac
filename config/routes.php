@@ -26,7 +26,7 @@ use Cake\Routing\Route\DashedRoute;
 /**
  * The default class to use for all routes
  *
- * The following route classes are supplied with CakePHP and are appropriate
+ * The following Route classes are supplied with CakePHP and are appropriate
  * to set as the default:
  *
  * - Route
@@ -51,17 +51,33 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     //$routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
     $routes->connect('/', ['controller' => 'Articles', 'action' => 'index']);
-    $routes->connect('/:id', ['controller' => 'Articles', 'action' => 'index'],[
-        'pass' => ['id'],
+    $routes->connect('categorie/:id-:title', ['controller' => 'Articles', 'action' => 'index'],[
+        'pass' => ['id','title'],
         'id' => '[0-9]+'
     ]);
+    $routes->connect('article/:id-:title', ['controller' => 'Articles', 'action' => 'view'],[
+        'pass' => ['id','title'],
+        'id' => '[0-9]+'
+    ]);
+
 
     $routes->connect('connexion/',['controller' => 'Users','action' => 'login','prefix' => false]);
     $routes->connect('/deconnexion/',['controller' => 'Users','action' => 'logout']);
     $routes->connect('/inscription/',['controller' => 'Users','action' => 'register']);
 
-    $routes->connect('/profil/editer/*',['controller' => 'Users','action' => 'edit']);
-    $routes->connect('/profil/editer/*',['controller' => 'Users','action' => 'edit']);
+    $routes->connect('/profil/:id-:username',['controller' => 'Users','action' => 'view'],[
+        'pass' => ['id','username'],
+        'id' => '[0-9]+'
+    ]);
+    $routes->connect('compte/validation/:email',['controller' => 'Users','action' => 'validate'],[
+        'pass' => ['email'],
+        'id' => '[a-zA-Z0-9]+'
+    ]);
+
+    $routes->connect('/profil/editer/:id-:username',['controller' => 'Users','action' => 'edit'],[
+        'pass' => ['id','username'],
+        'id' => '[0-9]+'
+    ]);
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
      */
@@ -76,11 +92,11 @@ Router::scope('/', function (RouteBuilder $routes) {
      *    `$routes->connect('/:controller', ['action' => 'index'], ['routeClass' => 'DashedRoute']);`
      *    `$routes->connect('/:controller/:action/*', [], ['routeClass' => 'DashedRoute']);`
      *
-     * Any route class can be used with this method, such as:
+     * Any Route class can be used with this method, such as:
      * - DashedRoute
      * - InflectedRoute
      * - Route
-     * - Or your own route class
+     * - Or your own Route class
      *
      * You can remove these routes once you've connected the
      * routes you want in your application.
@@ -100,6 +116,11 @@ Plugin::routes();
 
 Router::prefix('admin', function ($routes) {
     $routes->connect('/', ['controller' => 'Users', 'action' => 'gestion']);
+    $routes->connect('/utilisateurs/',['controller' => 'Users', 'action' => 'index']);
+    $routes->connect('/utilisateurs/statut/:active',['controller' => 'Users', 'action' => 'index'],[
+        'pass' => ['active'],
+        'active' => '[0-9]'
+    ]);
     $routes->fallbacks(DashedRoute::class);
 });
 

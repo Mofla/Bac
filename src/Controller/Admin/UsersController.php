@@ -16,12 +16,12 @@ class UsersController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
+    public function index($active = 1)
     {
         $this->paginate = [
             'contain' => ['Roles']
         ];
-        $users = $this->paginate($this->Users);
+        $users = $this->paginate($this->Users->find()->where(['role_id !=' => 1,'is_active' => $active]));
 
         $this->set(compact('users'));
         $this->set('_serialize', ['users']);

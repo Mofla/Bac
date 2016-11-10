@@ -17,7 +17,7 @@
                     </div>
                     <div class="panel-tags-text-right">
                         Catégorie :
-                        <?= $this->Html->link(h($article->tag->name),['action' => 'index',h($article->tag->name)]) ?>
+                        <?= $this->Html->link(h($article->tag->name),['action' => 'index',$article->tag->id,toUrl(h($article->tag->name))]) ?>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -33,7 +33,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <?= $this->Html->link('Voir l\'article',['action' => 'view',$article->id],['class' => 'btn btn-xs btn-success pull-right','escape' => false]) ?>
+                            <?= $this->Html->link('Voir l\'article',['action' => 'view',$article->id,toUrl(h($article->name))],['class' => 'btn btn-xs btn-success pull-right','escape' => false]) ?>
                         </div>
                     </div>
 
@@ -42,8 +42,16 @@
                     <!-- infos créateur -->
                     <div class="row">
                         <div class="col-xs-12">
-                            <?= $this->Html->image('avatars/40x40/'.$article->user->picture_url,['class' => 'img-circle img-articles']) ?>
-                            Article publié par <?= $this->Html->link($article->user->username,['controller' => 'Users','action' => 'view','prefix' => false,$article->user->id]) ?>
+                            <?= $this->Html->image('avatars/40x40/'.h($article->user->picture_url),['class' => 'img-circle img-articles']) ?>
+                            Article publié par <?= $this->Html->link($article->user->username,['controller' => 'Users','action' => 'view','prefix' => false,$article->user->id,strtolower(h($article->user->username))],['class' => 'description']) ?>
+                            <div class="description-box boxshadow collapse">
+                                <label>Prénom : </label> <?= $article->user->firstname ?>
+                                <br>
+                                <label>Email : </label> <?= $article->user->email ?>
+                                <?= $this->Html->image('avatars/200x200/'.h($article->user->picture_url),['class' => 'img-responsive img-circle center-block']) ?>
+
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -51,3 +59,5 @@
         <?php endforeach; ?>
     </div>
 </div>
+
+<?= $this->Html->script('scripts.js') ?>

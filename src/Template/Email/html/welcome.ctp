@@ -16,10 +16,10 @@
 <body>
 <h3>Bonjour <?= $users->username ?></h3>,
 <p>
-    Merci de votre inscription sur le blog. Votre compte est bien enregistré mais pas validé. Pour l'activer, veuillez <a href="http://localhost:8765/compte/validation/<?= h($users->email) ?>">cliquer ici</a> ou suivre ce lien :
+    Merci de votre inscription sur le blog. Votre compte est bien enregistré mais pas validé. Pour l'activer, veuillez <a href="http://florentm.simplon-epinal.tk/blog/compte/validation/<?= h($users->email) ?>">cliquer ici</a> ou suivre ce lien :
 </p>
 <p>
-    <a href="http://localhost:8765/compte/validation/<?= h($users->email) ?>">http://localhost:8765/compte/validation/<?= h($users->email) ?></a>
+    <a href="http://florentm.simplon-epinal.tk/blog/compte/validation/<?= h($users->email) ?>">http://florentm.simplon-epinal.tk/blog/compte/validation/<?= h($users->email) ?></a>
 </p>
 <p>
     A bientôt !

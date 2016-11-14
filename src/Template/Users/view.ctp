@@ -34,12 +34,43 @@
                     </div>
                     <hr>
                     <div>
-                        <?php if(!empty($user->comments)): ?>
-                            Pas vide
+                        <?php if(!empty($comments)): ?>
+                            <table class="table table-responsive table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Article</th>
+                                    <th>Commentaire</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach($comments as $comment): ?>
+                                    <tr>
+                                        <td><?= h($comment->article->name) ?></td>
+                                        <td><?= h($comment->name) ?></td>
+                                        <td><?= $this->Html->link('<span class="glyphicon glyphicon-eye-open text-blue"></span>',[
+                                                'controller' => 'Articles',
+                                                'action' => 'view',
+                                                $comment->article_id,
+                                                toUrl(h($comment->article->name))
+                                            ],['class' => 'btn btn-xs btn-default', 'escape' => false]) ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </tbody>
+                            </table>
                         <?php else: ?>
-                            Vide
+                            vide
                         <?php endif; ?>
                     </div>
+                    <?php if(sizeof($user->comments) > 5): ?>
+                        <div class="paginator text-center">
+                            <ul class="pagination">
+                                <?= $this->Paginator->prev('< ') ?>
+                                <?= $this->Paginator->numbers() ?>
+                                <?= $this->Paginator->next(' >') ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
 

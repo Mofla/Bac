@@ -5,10 +5,10 @@
     <div class="col-xs-12 col-md-2">
         <div class="list-group">
             <span class="list-group-item list-group-item-title"><span class="glyphicon glyphicon-th-list"></span> Articles</span>
-            <?= $this->Html->link('<span class="glyphicon glyphicon-send"></span> - Publiés',['action' => 'index',1],['class' => 'list-group-item','escape' => false]) ?>
-            <?= $this->Html->link('<span class="glyphicon glyphicon-floppy-remove"></span> - Retirés',['action' => 'index',2],['class' => 'list-group-item','escape' => false]) ?>
-            <?= $this->Html->link('<span class="glyphicon glyphicon-floppy-disk"></span> - Brouillons',['action' => 'index',0],['class' => 'list-group-item','escape' => false]) ?>
-            <?= $this->Html->link('<span class="glyphicon glyphicon-plus"></span> - Ajouter un nouvel article',['action' => 'add'],['class' => 'list-group-item','escape' => false]) ?>
+            <?= $this->Html->link('<span class="glyphicon glyphicon-send text-green"></span> - Publiés',['action' => 'index',1],['class' => 'list-group-item','escape' => false]) ?>
+            <?= $this->Html->link('<span class="glyphicon glyphicon-floppy-remove text-red"></span> - Retirés',['action' => 'index',2],['class' => 'list-group-item','escape' => false]) ?>
+            <?= $this->Html->link('<span class="glyphicon glyphicon-floppy-disk text-blue"></span> - Brouillons',['action' => 'index',0],['class' => 'list-group-item','escape' => false]) ?>
+            <?= $this->Html->link('<span class="glyphicon glyphicon-plus text-gold"></span> - Ajouter un nouvel article',['action' => 'add'],['class' => 'list-group-item','escape' => false]) ?>
         </div>
     </div>
 

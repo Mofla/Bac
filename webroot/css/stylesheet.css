@@ -135,7 +135,7 @@ body{
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-
+    bottom:0;
 }
 
 .description-box > img
@@ -147,6 +147,34 @@ body{
     padding:0 auto;
 }
 
+.comment-title{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.comment-sub
+{
+    padding:2px 4px;
+    font-size: 0.8em;
+}
+
+.comments-count
+{
+    float: right;
+    display: inline-block;
+}
+
+.media
+{
+    background-color: white;
+}
+
+.likes
+{
+    font-size: 0.8em;
+    font-style: italic;
+}
+
 /*
 *
 */
@@ -156,11 +184,23 @@ body{
     border:1px solid #1d1d1d;
 }
 
+.img-comments
+{
+    border:1px solid #1d1d1d;
+    float: left;
+    margin-right: 8px;
+    clear: both;
+}
+
 .dropdown-titles
 {
      color: #787878;
 }
 
+nav
+{
+    margin:0 !important;
+}
 
 /*
 *   Tags
@@ -199,6 +239,17 @@ body{
 .text-red
 {
     color: #b43115;
+}
+
+.text-blue
+{
+    color: #5081b0;
+}
+
+.text-gold
+{
+    color: gold;
+    text-shadow: 0 0 1px black;
 }
 
 .text-italic

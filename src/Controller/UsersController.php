@@ -24,6 +24,7 @@ class UsersController extends AppController
     {
         if (in_array($this->request->action, ['edit']))
         {
+            // can edit only own profile
             $userId = (int)$this->request->params['pass'][0];
             if ($userId === $user['id']) {
                 return true;
@@ -35,9 +36,15 @@ class UsersController extends AppController
 
     public function view($id = null)
     {
-        $user = $this->Users->get($id,['contain' => ['Comments','Roles']]);
+        $user = $this->Users->get($id,['contain' => ['Comments','Roles','Comments.Articles']]);
+        // load all comments from this user, to enable pagination
+        $comments = $this->Users->Comments->find()->contain('Articles')->where(['Comments.user_id' => $id])->orderDesc('Comments.created');
+        $this->paginate = [
+            'limit' => 5
+        ];
+        $this->paginate($comments);
 
-        $this->set(compact('user'));
+        $this->set(compact('user','comments'));
     }
 
     public function edit($id = null,$username = null)

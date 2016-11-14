@@ -30,7 +30,11 @@ class NavCell extends Cell
         $is_admin = false;
         ($this->request->session()->read('Auth.User.id')) ? $is_connected = true : '';
         ($this->request->session()->read('Auth.User.role_id') === 1) ? $is_admin = true : '';
-        ($is_connected) ? $user_id = $this->request->session()->read('Auth.User.id') : '';
-        $this->set(compact(['is_connected','is_admin','user_id']));
+        if($is_connected)
+        {
+            $user_id = $this->request->session()->read('Auth.User.id');
+            $username =strtolower($this->request->session()->read('Auth.User.username'));
+        }
+        $this->set(compact(['is_connected','is_admin','user_id','username']));
     }
 }

@@ -1,5 +1,3 @@
-<?= $this->request->action ?>
-<?= $this->request->pass['0'] ?>
 <div class="row">
     <?= $this->Form->create($user,['enctype' => 'multipart/form-data','class' => 'form-group form-confirm']) ?>
     <div class="col-xs-12 col-md-6 col-md-offset-3">
@@ -37,6 +35,4 @@
 </div>
 
 <?= $this->Html->script('scripts.js') ?>
-<script>
 
-</script>

@@ -24,3 +24,7 @@ $('.form-confirm').submit(function() {
         return false;
     }
 });
+
+$('.description').on('mouseenter mouseleave',function() {
+    $(this).next('.description-box').slideToggle();
+});

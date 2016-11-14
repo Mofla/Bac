@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Articles Controller
@@ -16,7 +17,7 @@ class ArticlesController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index($id = null)
+    public function index($id = null,$title = null)
     {
         $this->paginate = [
             'contain' => ['Tags','Users']
@@ -119,5 +120,11 @@ class ArticlesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->Auth->allow(['index','view']);
     }
 }

@@ -78,7 +78,7 @@ body{
 }
 
 /*
-* Panels
+* Panels and boxes
 */
 .panel{
     border: 1px solid #1d1d1d;
@@ -122,6 +122,31 @@ body{
     border:1px solid #1d1d1d;
 }
 
+.description-box{
+    width:auto;
+    height: auto;
+    border:1px solid #1d1d1d;
+    position: absolute;
+    background-color: rgba(255,255,255,0.95);
+    padding:4px;
+    z-index: 10;
+    font-size:16px;
+    line-height: 16px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+
+}
+
+.description-box > img
+{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border:1px solid #c4c4c4;
+    padding:0 auto;
+}
+
 /*
 *
 */
@@ -159,4 +184,24 @@ body{
 .text-shadow
 {
     text-shadow: 0 0 1px #0f0f0f;
+}
+
+.bold
+{
+    font-weight: bold;
+}
+
+.text-green
+{
+    color: #49b136;
+}
+
+.text-red
+{
+    color: #b43115;
+}
+
+.text-italic
+{
+    font-style: oblique;
 }

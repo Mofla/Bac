@@ -1,89 +1,84 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Roles'), ['controller' => 'Roles', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Role'), ['controller' => 'Roles', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Comments'), ['controller' => 'Comments', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Comment'), ['controller' => 'Comments', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="users view large-9 medium-8 columns content">
-    <h3><?= h($user->id) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('Username') ?></th>
-            <td><?= h($user->username) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Firstname') ?></th>
-            <td><?= h($user->firstname) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Lastname') ?></th>
-            <td><?= h($user->lastname) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Password') ?></th>
-            <td><?= h($user->password) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Email') ?></th>
-            <td><?= h($user->email) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Picture Url') ?></th>
-            <td><?= h($user->picture_url) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Role') ?></th>
-            <td><?= $user->has('role') ? $this->Html->link($user->role->name, ['controller' => 'Roles', 'action' => 'view', $user->role->]) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($user->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Created') ?></th>
-            <td><?= h($user->created) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Modified') ?></th>
-            <td><?= h($user->modified) ?></td>
-        </tr>
-    </table>
-    <div class="related">
-        <h4><?= __('Related Comments') ?></h4>
-        <?php if (!empty($user->comments)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Name') ?></th>
-                <th scope="col"><?= __('Content') ?></th>
-                <th scope="col"><?= __('User Id') ?></th>
-                <th scope="col"><?= __('Created') ?></th>
-                <th scope="col"><?= __('Modified') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($user->comments as $comments): ?>
-            <tr>
-                <td><?= h($comments->id) ?></td>
-                <td><?= h($comments->name) ?></td>
-                <td><?= h($comments->content) ?></td>
-                <td><?= h($comments->user_id) ?></td>
-                <td><?= h($comments->created) ?></td>
-                <td><?= h($comments->modified) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Comments', 'action' => 'view', $comments->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Comments', 'action' => 'edit', $comments->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Comments', 'action' => 'delete', $comments->id], ['confirm' => __('Are you sure you want to delete # {0}?', $comments->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
+<div class="row">
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading panel-heading-articles text-center">
+                <span class="h3">Profil de <?= h($user->username) ?></span>
+            </div>
+            <div class="panel-body">
+                <div class="col-xs-12 col-md-12 text-center">
+                    <?= $this->Html->link('Editer ce profil',['action' => 'edit',$user->id],['class' => 'btn btn-lg btn-danger']) ?>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                    <?= $this->Html->image('avatars/200x200/'.h($user->picture_url),['class' => 'img-responsive img-circle']) ?>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="text-center">
+                        <span class="h4 bold">Informations</span>
+                    </div>
+                    <hr>
+                    <label><span class="glyphicon glyphicon-user"></span> Prénom : </label>
+                    <?= h($user->firstname) ?>
+                    <hr>
+                    <label><span class="glyphicon glyphicon-user"></span> Nom : </label>
+                    <?= h($user->lastname) ?>
+                    <hr>
+                    <label><span class="glyphicon glyphicon-envelope"></span> Email : </label>
+                    <?= h($user->email) ?>
+                    <hr>
+                    <span class="text-muted text-italic">Inscrit depuis le : <?= h($user['created']) ?></span>
+                    <hr>
+                    <span class="text-muted text-italic">Dernière connexion le : <?= h($user['modified']) ?></span>
+
+
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <div class="text-center">
+                        <span class="h4 bold">Derniers commentaires</span>
+                    </div>
+                    <hr>
+                    <div>
+                        <?php if(!empty($comments)): ?>
+                            <table class="table table-responsive table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Article</th>
+                                    <th>Commentaire</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach($comments as $comment): ?>
+                                    <tr>
+                                        <td><?= h($comment->article->name) ?></td>
+                                        <td><?= h($comment->name) ?></td>
+                                        <td><?= $this->Html->link('<span class="glyphicon glyphicon-eye-open text-blue"></span>',[
+                                                'controller' => 'Articles',
+                                                'action' => 'view',
+                                                $comment->article_id,
+                                                toUrl(h($comment->article->name))
+                                            ],['class' => 'btn btn-xs btn-default', 'escape' => false]) ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        <?php else: ?>
+                            vide
+                        <?php endif; ?>
+                    </div>
+                    <?php if(sizeof($user->comments) > 5): ?>
+                        <div class="paginator text-center">
+                            <ul class="pagination">
+                                <?= $this->Paginator->prev('< ') ?>
+                                <?= $this->Paginator->numbers() ?>
+                                <?= $this->Paginator->next(' >') ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+
+        </div>
     </div>
+</div>
 </div>

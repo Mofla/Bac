@@ -9,12 +9,13 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $name
  * @property string $content
+ * @property int $article_id
  * @property int $user_id
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  *
+ * @property \App\Model\Entity\Article $article
  * @property \App\Model\Entity\User $user
- * @property \App\Model\Entity\ArticleComment[] $article_comments
  */
 class Comment extends Entity
 {

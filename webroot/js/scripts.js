@@ -10,6 +10,8 @@ var imgPreview = function(event) {
     reader.readAsDataURL(input.files[0]);
 };
 
+
+// confirm passwords in forms
 $('.form-confirm').submit(function() {
     var pass = $('input[name=password]').val();
     var confirm = $('input[name=confirm_password]').val();
@@ -25,6 +27,23 @@ $('.form-confirm').submit(function() {
     }
 });
 
-$('.description').on('mouseenter mouseleave',function() {
+// information box
+$('.description').on('click',function(event) {
+    event.preventDefault();
     $(this).next('.description-box').slideToggle();
 });
+
+$('.close-description-box').on('click',function () {
+    $(this).closest('.description-box').slideToggle();
+})
+
+
+// box-articles animation (showing up one per one)
+function showDiv()
+{
+    $('.box-articles:hidden').each(function(i) {
+        setTimeout(function(element) {
+            element.fadeIn();
+        }, i * 500, $(this));
+    });
+}

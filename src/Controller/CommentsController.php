@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Comments Controller
@@ -10,6 +11,25 @@ use App\Controller\AppController;
  */
 class CommentsController extends AppController
 {
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['add']);
+        return parent::beforeFilter($event);
+    }
+
+    public function isAuthorized($user)
+    {
+        if (in_array($this->request->action, ['edit']))
+        {
+            // can edit only own comments
+            $userId = (int)$this->request->params['pass'][0];
+            if ($userId === $user['id']) {
+                return true;
+            }
+        }
+
+        return parent::isAuthorized($user);
+    }
 
     /**
      * Index method

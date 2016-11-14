@@ -11,7 +11,7 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $Users
  * @property \Cake\ORM\Association\BelongsTo $Tags
- * @property \Cake\ORM\Association\HasMany $ArticleComments
+ * @property \Cake\ORM\Association\HasMany $Comments
  *
  * @method \App\Model\Entity\Article get($primaryKey, $options = [])
  * @method \App\Model\Entity\Article newEntity($data = null, array $options = [])
@@ -50,7 +50,7 @@ class ArticlesTable extends Table
             'foreignKey' => 'tag_id',
             'joinType' => 'INNER'
         ]);
-        $this->hasMany('ArticleComments', [
+        $this->hasMany('Comments', [
             'foreignKey' => 'article_id'
         ]);
     }
@@ -76,6 +76,9 @@ class ArticlesTable extends Table
         $validator
             ->requirePresence('content', 'create')
             ->notEmpty('content');
+
+        $validator
+            ->allowEmpty('picture_url');
 
         $validator
             ->integer('state')

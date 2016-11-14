@@ -1,23 +1,13 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Comments'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Article Comments'), ['controller' => 'ArticleComments', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Article Comment'), ['controller' => 'ArticleComments', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="comments form large-9 medium-8 columns content">
-    <?= $this->Form->create($comment) ?>
-    <fieldset>
-        <legend><?= __('Add Comment') ?></legend>
-        <?php
-            echo $this->Form->input('name');
-            echo $this->Form->input('content');
-            echo $this->Form->input('user_id', ['options' => $users]);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<?= $this->layout = false; ?>
+<div class="row">
+    <div class="col-xs-12 col-md-6 col-md-offset-3">
+        <?= $this->Form->create($comment,['id' => 'form']) ?>
+        <?= $this->Form->input('name',['label' => 'Intitulé','class' => 'form-control']) ?>
+        <?= $this->Form->input('content',['label' => 'Message','class' => 'form-control']) ?>
+        <hr>
+        <div class="text-center">
+            <?= $this->Form->button('Commenter',['class' => 'btn btn-md btn-success']) ?>
+        </div>
+        <?= $this->Form->end() ?>
+    </div>
 </div>

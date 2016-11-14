@@ -1,30 +1,36 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $article->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $article->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Articles'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Tags'), ['controller' => 'Tags', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Tag'), ['controller' => 'Tags', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Article Comments'), ['controller' => 'ArticleComments', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Article Comment'), ['controller' => 'ArticleComments', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="articles form large-9 medium-8 columns content">
-    <?= $this->Form->create($article) ?>
-    <fieldset>
-        <legend><?= __('Edit Article') ?></legend>
-        <?php
-            echo $this->Form->input('name');
-            echo $this->Form->input('content');
-            echo $this->Form->input('state');
-            echo $this->Form->input('tag_id', ['options' => $tags]);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<div class="row">
+    <div class="col-xs-12 col-md-6 col-md-offset-3">
+        <div class="panel panel-default boxshadow">
+            <div class="panel-heading panel-heading-articles text-center">
+                <h3 class="h3">Editer l'article</h3>
+            </div>
+            <div class="panel-body">
+                <?= $this->Form->create($article,['class' => 'form-group']) ?>
+                <?php
+                echo $this->Form->input('name',['class' => 'form-control']);
+                echo $this->Form->input('content',['class' => 'form-control']);
+                ?>
+                <div>
+                    <label>Etat de l'article</label>
+                    <div class="radio">
+                        <label><input type="radio" name="state" value=0>Enregistrer comme brouillon</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="state" value=1>Publier directement</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="state" value=2>Ne plus publier</label>
+                    </div>
+                </div>
+                <?php
+                echo $this->Form->input('tag_id', ['options' => $tags,'class' => 'form-control']);
+                ?>
+            </div>
+            <div class="panel-footer panel-footer-articles text-center">
+                <?= $this->Form->button('Valider',['class' => 'btn btn-lg btn-success']) ?>
+            </div>
+            <?= $this->Form->end() ?>
+        </div>
+    </div>
 </div>
+

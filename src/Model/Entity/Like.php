@@ -4,23 +4,17 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Article Entity
+ * Like Entity
  *
  * @property int $id
- * @property string $name
- * @property string $content
- * @property string $picture_url
- * @property int $state
+ * @property int $comment_id
  * @property int $user_id
- * @property int $tag_id
- * @property \Cake\I18n\Time $created
- * @property \Cake\I18n\Time $modified
+ * @property bool $state
  *
+ * @property \App\Model\Entity\Comment $comment
  * @property \App\Model\Entity\User $user
- * @property \App\Model\Entity\Tag $tag
- * @property \App\Model\Entity\Comment[] $comments
  */
-class Article extends Entity
+class Like extends Entity
 {
 
     /**

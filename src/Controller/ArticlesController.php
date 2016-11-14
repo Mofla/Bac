@@ -20,14 +20,15 @@ class ArticlesController extends AppController
     public function index($id = null,$title = null)
     {
         $this->paginate = [
-            'contain' => ['Tags','Users']
+            'contain' => ['Tags','Users','Comments'],
+            'limit' => 5
         ];
         if($id != null)
         {
-            $articles = $this->paginate($this->Articles->find()->where(['Tags.id' => $id,'state' => 1]));
+            $articles = $this->paginate($this->Articles->find()->where(['Tags.id' => $id,'state' => 1])->orderDesc('Articles.created'));
         }
         else {
-            $articles = $this->paginate($this->Articles->find()->where(['state' => 1]));
+            $articles = $this->paginate($this->Articles->find()->where(['state' => 1])->orderDesc('Articles.created'));
         }
 
 
@@ -45,11 +46,31 @@ class ArticlesController extends AppController
     public function view($id = null)
     {
         $article = $this->Articles->get($id, [
-            'contain' => ['Tags', 'ArticleComments','Users']
+            'contain' => ['Tags', 'Comments','Comments.Users','Users']
         ]);
+        $this->paginate = [
+            'limit' => 8
+        ];
+        $comments = $this->paginate($this->Articles->Comments->find()->contain(['Users','Likes'])->where(['article_id' => $id])->orderDesc('Comments.created'));
+        $comment = $this->Articles->Comments->newEntity();
+        if($this->request->is('post'))
+        {
+            $this->request->data['user_id'] = $this->Auth->user('id');
+            $this->request->data['article_id'] = $id;
+            $comment = $this->Articles->Comments->patchEntity($comment,$this->request->data);
+            if($this->Articles->Comments->save($comment))
+            {
+                $this->Flash->success('Votre commentaire a bien été posté');
+                return $this->redirect($this->referer());
+            }
+            else {
+                $this->Flash->error('Impossible de valider votre commentaire');
+            }
+        }
 
         $this->set('article', $article);
-        $this->set('_serialize', ['article']);
+        $this->set(compact('comment','comments','canLike'));
+        $this->set('_serialize', ['article','comment','comments']);
     }
 
     /**

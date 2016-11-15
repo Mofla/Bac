@@ -83,5 +83,5 @@
 
 <?= $this->Html->script('scripts.js') ?>
 <script>
-    $(document).ready(showDiv())
+    $(document).ready(showDiv('box-articles'))
 </script>

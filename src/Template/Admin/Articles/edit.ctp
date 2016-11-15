@@ -7,8 +7,8 @@
             <div class="panel-body">
                 <?= $this->Form->create($article,['class' => 'form-group']) ?>
                 <?php
-                echo $this->Form->input('name',['class' => 'form-control']);
-                echo $this->Form->input('content',['class' => 'form-control']);
+                echo $this->Form->input('name',['label' => 'Titre','class' => 'form-control']);
+                echo $this->Form->input('content',['label' => 'Contenu','class' => 'form-control']);
                 ?>
                 <div>
                     <label>Etat de l'article</label>
@@ -23,11 +23,12 @@
                     </div>
                 </div>
                 <?php
-                echo $this->Form->input('tag_id', ['options' => $tags,'class' => 'form-control']);
+                echo $this->Form->input('tag_id', ['label' => 'Catégorie','options' => $tags,'class' => 'form-control']);
                 ?>
             </div>
             <div class="panel-footer panel-footer-articles text-center">
                 <?= $this->Form->button('Valider',['class' => 'btn btn-lg btn-success']) ?>
+                <?= $this->Html->link('Annuler',['controller' => 'Articles','action' => 'index'],['class' => 'btn btn-lg btn-danger']) ?>
             </div>
             <?= $this->Form->end() ?>
         </div>

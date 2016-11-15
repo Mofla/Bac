@@ -51,17 +51,17 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     //$routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
     $routes->connect('/', ['controller' => 'Articles', 'action' => 'index']);
-    $routes->connect('categorie/:id-:title', ['controller' => 'Articles', 'action' => 'index'],[
+    $routes->connect('/categorie/:id-:title', ['controller' => 'Articles', 'action' => 'index'],[
         'pass' => ['id','title'],
         'id' => '[0-9]+'
     ]);
-    $routes->connect('article/:id-:title', ['controller' => 'Articles', 'action' => 'view'],[
+    $routes->connect('/article/:id-:title', ['controller' => 'Articles', 'action' => 'view'],[
         'pass' => ['id','title'],
         'id' => '[0-9]+'
     ]);
 
 
-    $routes->connect('connexion/',['controller' => 'Users','action' => 'login','prefix' => false]);
+    $routes->connect('/connexion/',['controller' => 'Users','action' => 'login']);
     $routes->connect('/deconnexion/',['controller' => 'Users','action' => 'logout']);
     $routes->connect('/inscription/',['controller' => 'Users','action' => 'register']);
 
@@ -69,7 +69,7 @@ Router::scope('/', function (RouteBuilder $routes) {
         'pass' => ['id','username'],
         'id' => '[0-9]+'
     ]);
-    $routes->connect('compte/validation/:email',['controller' => 'Users','action' => 'validate'],[
+    $routes->connect('/compte/validation/:email',['controller' => 'Users','action' => 'validate'],[
         'pass' => ['email'],
         'id' => '[a-zA-Z0-9]+'
     ]);
@@ -117,9 +117,28 @@ Plugin::routes();
 Router::prefix('admin', function ($routes) {
     $routes->connect('/', ['controller' => 'Users', 'action' => 'gestion']);
     $routes->connect('/utilisateurs/',['controller' => 'Users', 'action' => 'index']);
-    $routes->connect('/utilisateurs/statut/:active',['controller' => 'Users', 'action' => 'index'],[
-        'pass' => ['active'],
-        'active' => '[0-9]'
+    $routes->connect('/utilisateurs/profil/:id-:username', ['controller' => 'Articles', 'action' => 'view'],[
+        'pass' => ['id','username'],
+        'id' => '[0-9]+'
+    ]);
+    $routes->connect('/utilisateurs/editer/:id-:username', ['controller' => 'Articles', 'action' => 'edit'],[
+        'pass' => ['id','username'],
+        'id' => '[0-9]+'
+    ]);
+    $routes->connect('/article/:id-:title', ['controller' => 'Articles', 'action' => 'view'],[
+        'pass' => ['id','title'],
+        'id' => '[0-9]+'
+    ]);
+    $routes->connect('/article/editer/:id-:title', ['controller' => 'Articles', 'action' => 'edit'],[
+        'pass' => ['id','title'],
+        'id' => '[0-9]+'
+    ]);
+    $routes->connect('/article/ajouter', ['controller' => 'Articles', 'action' => 'add']);
+    $routes->connect('/categories/', ['controller' => 'Tags', 'action' => 'index']);
+    $routes->connect('/categories/ajouter', ['controller' => 'Tags', 'action' => 'add']);
+    $routes->connect('/categories/editer/:id-:title', ['controller' => 'Tags', 'action' => 'edit'],[
+        'pass' => ['id','title'],
+        'id' => '[0-9]+'
     ]);
     $routes->fallbacks(DashedRoute::class);
 });

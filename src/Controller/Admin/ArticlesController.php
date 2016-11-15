@@ -22,6 +22,18 @@ class ArticlesController extends AppController
             'contain' => ['Tags']
         ];
         $articles = $this->paginate($this->Articles->find()->where(['state' => $state]));
+        $this->set(compact('articles'));
+        $this->set('_serialize', ['articles']);
+    }
+
+    public function listajax($state=null)
+    {
+        $this->paginate = [
+            'contain' => ['Tags'],
+            'limit' => 10
+        ];
+        ($this->request->query['state'] != null) ? $state = $this->request->query['state'] : $state = 1;
+        $articles = $this->paginate($this->Articles->find()->where(['state' => $state]));
 
         $this->set(compact('articles'));
         $this->set('_serialize', ['articles']);
@@ -37,11 +49,31 @@ class ArticlesController extends AppController
     public function view($id = null)
     {
         $article = $this->Articles->get($id, [
-            'contain' => ['Tags', 'ArticleComments','Users']
+            'contain' => ['Tags', 'Comments','Comments.Users','Users']
         ]);
+        $this->paginate = [
+            'limit' => 8
+        ];
+        $comments = $this->paginate($this->Articles->Comments->find()->contain(['Users','Likes'])->where(['article_id' => $id])->orderDesc('Comments.created'));
+        $comment = $this->Articles->Comments->newEntity();
+        if($this->request->is('post'))
+        {
+            $this->request->data['user_id'] = $this->Auth->user('id');
+            $this->request->data['article_id'] = $id;
+            $comment = $this->Articles->Comments->patchEntity($comment,$this->request->data);
+            if($this->Articles->Comments->save($comment))
+            {
+                $this->Flash->success('Votre commentaire a bien été posté');
+                return $this->redirect($this->referer());
+            }
+            else {
+                $this->Flash->error('Impossible de valider votre commentaire');
+            }
+        }
 
         $this->set('article', $article);
-        $this->set('_serialize', ['article']);
+        $this->set(compact('comment','comments','canLike'));
+        $this->set('_serialize', ['article','comment','comments']);
     }
 
     /**
@@ -106,6 +138,19 @@ class ArticlesController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $article = $this->Articles->get($id);
+        // First : we need to suppress all comments bound to this article
+        // & all likes bound to all these comments
+        // Here : suppress all likes
+        $comments = $this->Articles->Comments->find()->where(['article_id' => $id]);
+        foreach ($comments as $comment)
+        {
+            $likes[] = $comment->id;
+        }
+        // condition IN
+        $this->Articles->Comments->Likes->deleteAll(['comment_id IN' => $likes]);
+        // Then we delete all comments
+        $this->Articles->Comments->deleteAll(['article_id' => $id]);
+
         if ($this->Articles->delete($article)) {
             $this->Flash->success(__('The article has been deleted.'));
         } else {

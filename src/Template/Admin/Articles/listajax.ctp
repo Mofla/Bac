@@ -1,3 +1,4 @@
+<?= $this->layout = false ?>
 <table class="table table-striped table-responsive">
     <thead>
     <tr>
@@ -10,6 +11,11 @@
     </tr>
     </thead>
     <tbody>
+    <?php if(sizeof($articles) < 1): ?>
+        <tr>
+            <td colspan="6" class="text-center">Il n'y a aucun article</td>
+        </tr>
+    <?php endif; ?>
     <?php foreach ($articles as $article): ?>
         <tr>
             <td><?= $this->Number->format($article->id) ?></td>
@@ -28,8 +34,8 @@
                     </ul>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu3">
                         <li class="dropdown-header">Choix</li>
-                        <li><?= $this->Html->link('Voir', ['action' => 'view', $article->id]) ?></li>
-                        <li><?= $this->Html->link('Editer', ['action' => 'edit', $article->id]) ?></li>
+                        <li><?= $this->Html->link('Voir', ['action' => 'view', $article->id,toUrl(h($article->name))]) ?></li>
+                        <li><?= $this->Html->link('Editer', ['action' => 'edit', $article->id,toUrl(h($article->name))]) ?></li>
                         <?php if($article->state == 0 || $article->state == 2): ?>
                             <li><?= $this->Form->postLink('Publier', ['action' => 'publish', $article->id], ['confirm' => __('Publier cet article ?', $article->id)]) ?></li>
                         <?php elseif($article->state == 1): ?>
@@ -48,3 +54,28 @@
     <?php endforeach; ?>
     </tbody>
 </table>
+<div class="text-center">
+    <div class="text-center">
+        <ul class="pagination pagination-large">
+            <?php
+            echo $this->Paginator->prev('< ', [], null,['class'=>'disabled']);
+            echo $this->Paginator->numbers(['class' => 'numbers']);
+            echo $this->Paginator->next(' >', [], null, ['class' => 'disabled']);
+            ?>
+        </ul>
+    </div>
+</div>
+
+<script>
+    // pagination in ajax
+    $('.pagination a').unbind().bind('click',function(event){
+        event.preventDefault();
+        if($(this).closest('li').hasClass('active') || $(this).closest('li').hasClass('disabled'))
+        {
+            return false;
+        }
+        var url = $(this).attr('href');
+        $('#articles').load(url).unbind();
+        return false;
+    })
+</script>

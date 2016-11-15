@@ -35,6 +35,7 @@ $cakeDescription = 'Blog';
     <?= $this->Html->css('stylesheet.css') ?>
 
     <?= $this->Html->script('jquery.js') ?>
+    <?= $this->Html->script('jquery-ui.js') ?>
     <?= $this->Html->script('bootstrap.js') ?>
 
     <?= $this->fetch('meta') ?>

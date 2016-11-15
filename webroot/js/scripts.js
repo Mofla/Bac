@@ -39,9 +39,9 @@ $('.close-description-box').on('click',function () {
 
 
 // box-articles animation (showing up one per one)
-function showDiv()
+function showDiv(div)
 {
-    $('.box-articles:hidden').each(function(i) {
+    $('.'+div+':hidden').each(function(i) {
         setTimeout(function(element) {
             element.fadeIn();
         }, i * 500, $(this));

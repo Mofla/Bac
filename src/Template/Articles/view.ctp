@@ -48,9 +48,10 @@
             </div>
         </div>
 
-        <hr>
+        <br>
         <?php if($this->request->session()->read('Auth.User.id') != null): ?>
             <div class="text-center">
+                <button id="btn-view-comments" class="btn btn-md btn-warning">Voir les commentaires</button>
                 <button id="btn-add-comments" class="btn btn-md btn-success">Ajouter un commentaire</button>
                 <button id="btn-remove-comments" class="btn btn-md btn-danger collapse">Annuler</button>
             </div>
@@ -73,10 +74,10 @@
             <br>
         </div>
         <!-- zone des commentaires -->
-        <div class="comments">
+        <div id="comments" class="comments">
             <?php foreach ($comments as $comment): ?>
-                <div class="row">
-                    <div class="col-xs-12 col-md-8 col-md-offset-2 media boxshadow">
+                <div class="row comments collapse">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 media boxshadow">
                         <div class="media-left">
                             <br>
                             <?= $this->Html->image('avatars/40x40/'.h($comment->user->picture_url),['class' => 'img-circle img-comments']) ?>
@@ -123,8 +124,11 @@
                             </div>
                             <p><?= h($comment->content) ?></p>
                         </div>
-
-
+                        <?php if($this->request->session()->read('Auth.User.role_id') == 1): ?>
+                        <div class="media-right">
+                            <?= $this->Form->postLink('<span class="glyphicon glyphicon-trash"></span>',['controller' => 'Comments','action' => 'delete','prefix' => 'admin',$comment->id],['confirm' => 'Supprimer ce commentaire ?','class' => 'btn btn-sm btn-danger','escape' => false]) ?>
+                        </div>
+                        <?php endif; ?>
 
                     </div>
                 </div>
@@ -158,5 +162,19 @@
 
     });
 
-    $(document).ready(showDiv());
+    $(document).on('click','#btn-view-comments',function(){
+        callComments();
+    })
+    function callComments()
+    {
+        $.ajax({
+            type:"GET",
+            url:"<?= $this->Url->build(['controller' => 'Comments','action' => 'view']) ?>",
+            data:{id:<?= intval($article->id) ?>},
+            success:function (data) {
+                $('#comments').empty().hide().delay(100).html(data).show("slide", { direction: "left" }, 600);
+                $('html, body').animate({ scrollTop: $('#comments').offset().top+300 }, 'slow');
+            }
+        })
+    }
 </script>

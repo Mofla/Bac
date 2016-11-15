@@ -44,10 +44,7 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
-            'loginAction' => [
-                'controller' => 'Users',
-                'action' => 'login'
-            ],
+            'loginAction' => '/connexion',
             'authError' => 'Accès interdit.',
             'authenticate' => [
                 'Form' => [

@@ -105,12 +105,14 @@ class CommentsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $comment = $this->Comments->get($id);
+        // delete all likes
+        $this->Comments->Likes->deleteAll(['comment_id' => $id]);
         if ($this->Comments->delete($comment)) {
             $this->Flash->success(__('The comment has been deleted.'));
         } else {
             $this->Flash->error(__('The comment could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 }

@@ -27,6 +27,7 @@
                 <hr>
                 <div class="text-center">
                     <?= $this->Form->submit('Editer',['class' => 'btn btn-lg btn-success']) ?>
+                    <?= $this->Html->link('Annuler',['controller' => 'Users','action' => 'index'],['class' => 'btn btn-lg btn-danger']) ?>
                 </div>
             </div>
         </div>

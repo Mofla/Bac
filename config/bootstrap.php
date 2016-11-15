@@ -252,3 +252,7 @@ function toUrl($string) {
     $dict = ['I\'m' => 'I am'];
 return strtolower(preg_replace(array( '#[\\s-]+#', '#[^A-Za-z0-9\. -]+#' ), array( '-', '' ), noSpecials(str_replace(array_keys($dict), array_values($dict), urldecode($string)))));
 }
+
+function fromUrl($string) {
+    return ucfirst(preg_replace('~-~',' ',$string));
+}

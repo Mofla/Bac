@@ -13,23 +13,11 @@ class CommentsController extends AppController
 {
     public function beforeFilter(Event $event)
     {
-        $this->Auth->allow(['add','view']);
+        $this->Auth->allow(['add','view','edit','user']);
         return parent::beforeFilter($event);
     }
 
-    public function isAuthorized($user)
-    {
-        if (in_array($this->request->action, ['edit']))
-        {
-            // can edit only own comments
-            $userId = (int)$this->request->params['pass'][0];
-            if ($userId === $user['id']) {
-                return true;
-            }
-        }
 
-        return parent::isAuthorized($user);
-    }
 
     /**
      * Index method
@@ -67,6 +55,24 @@ class CommentsController extends AppController
         $this->set('_serialize', ['comments']);
     }
 
+    public function user($id=null)
+    {
+        if($this->request->is('ajax'))
+        {
+            $this->paginate = [
+                'limit' => 5
+            ];
+            ($this->request->query['id'] != null) ? $id = $this->request->query['id'] : '';
+            $comments = $this->paginate($this->Comments->find()->contain(['Articles','Likes'])->where(['Comments.user_id' => $id])->orderDesc('Comments.created'));
+
+            $this->set(compact('comments'));
+            $this->set('_serialize', ['comments']);
+        }
+        else{
+            return $this->redirect($this->referer());
+        }
+    }
+
     /**
      * Add method
      *
@@ -100,22 +106,25 @@ class CommentsController extends AppController
     public function edit($id = null)
     {
         (isset($this->request->query['id'])) ? $id = $this->request->query['id'] : '';
-        $comment = $this->Comments->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        $comment = $this->Comments->get($id);
+        if ($this->request->is('ajax')) {
+            $users = $this->Comments->Users->find('list', ['limit' => 200]);
+            $this->set(compact('comment', 'users'));
+            $this->set('_serialize', ['comment']);
+        }
+        elseif ($this->request->is(['patch', 'post', 'put'])) {
             $comment = $this->Comments->patchEntity($comment, $this->request->data);
             if ($this->Comments->save($comment)) {
-                $this->Flash->success(__('The comment has been saved.'));
+                $this->Flash->success('Commentaire bien édité.');
 
-                return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The comment could not be saved. Please, try again.'));
+                $this->Flash->error('Le commentaire n\'a pas été édité.');
             }
+            return $this->redirect($this->referer());
         }
-        $users = $this->Comments->Users->find('list', ['limit' => 200]);
-        $this->set(compact('comment', 'users'));
-        $this->set('_serialize', ['comment']);
+        else {
+            return $this->redirect($this->referer());
+        }
     }
 
     /**

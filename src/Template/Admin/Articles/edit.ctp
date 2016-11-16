@@ -18,9 +18,11 @@
                     <div class="radio">
                         <label><input type="radio" name="state" value=1>Publier directement</label>
                     </div>
+                    <?php if($article->state == 1): ?>
                     <div class="radio">
                         <label><input type="radio" name="state" value=2>Ne plus publier</label>
                     </div>
+                    <?php endif; ?>
                 </div>
                 <?php
                 echo $this->Form->input('tag_id', ['label' => 'Catégorie','options' => $tags,'class' => 'form-control']);

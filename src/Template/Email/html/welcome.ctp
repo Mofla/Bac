@@ -14,7 +14,7 @@
     <title><?php echo $this->fetch('title'); ?></title>
 </head>
 <body>
-<h3>Bonjour <?= $users->username ?></h3>,
+<h3>Bonjour <?= $users->username ?>,</h3>
 <p>
     Merci de votre inscription sur le blog. Votre compte est bien enregistré mais pas validé. Pour l'activer, veuillez <a href="http://florentm.simplon-epinal.tk/blog/compte/validation/<?= h($users->email) ?>">cliquer ici</a> ou suivre ce lien :
 </p>

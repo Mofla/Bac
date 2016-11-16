@@ -10,7 +10,6 @@
                 <hr>
                 <div class="text-center">
                     <?= $this->Form->submit('Valider',['class' => 'btn btn-lg btn-success']) ?>
-                    <?= $this->Html->link('Annuler',['controller' => 'Tags','action' => 'index'],['class' => 'btn btn-lg btn-danger']) ?>
                 </div>
                 <?= $this->Form->end() ?>
             </div>

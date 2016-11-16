@@ -9,7 +9,10 @@
             <?= $this->Html->link('<span class="glyphicon glyphicon-floppy-remove text-red"></span> - Retirés','#',['id' => 'btn-retired','class' => 'list-group-item','escape' => false]) ?>
             <?= $this->Html->link('<span class="glyphicon glyphicon-floppy-disk text-blue"></span> - Brouillons','#',['id' => 'btn-saved','class' => 'list-group-item','escape' => false]) ?>
             <?= $this->Html->link('<span class="glyphicon glyphicon-plus text-gold"></span> - Ajouter un nouvel article',['action' => 'add'],['class' => 'list-group-item','escape' => false]) ?>
-            <?= $this->Html->link('<span class="glyphicon glyphicon-tags text-gold"></span> - Gérer les catégories',['controller' => 'Tags','action' => 'index'],['class' => 'list-group-item','escape' => false]) ?>
+            <span class="list-group-item list-group-item-title"><span class="glyphicon glyphicon-user"></span> Utilisateurs</span>
+            <?= $this->Html->link('<span class="glyphicon glyphicon-share text-gold"></span> - Gérer',['controller' => 'Users','action' => 'index'],['class' => 'list-group-item','escape' => false]) ?>
+            <span class="list-group-item list-group-item-title"><span class="glyphicon glyphicon-tags"></span> Catégories</span>
+            <?= $this->Html->link('<span class="glyphicon glyphicon-share text-gold"></span> - Gérer',['controller' => 'Tags','action' => 'index'],['class' => 'list-group-item','escape' => false]) ?>
         </div>
     </div>
     <div id="articles" class="col-xs-12 col-md-10">

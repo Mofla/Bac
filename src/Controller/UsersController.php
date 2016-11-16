@@ -130,7 +130,8 @@ class UsersController extends AppController
                     ->template('welcome')
                     ->emailFormat('html')
                     ->to($users->email)
-                    ->from('administrateur@blogdemofla.fr')
+                    ->from('blogdemofla@gmail.com')
+                    ->subject('Confirmation de votre inscription')
                     ->send();
 
                 $this->Flash->success('Un mail vous a été envoyé.');
@@ -146,7 +147,32 @@ class UsersController extends AppController
 
     public function retrieve()
     {
+        $validateForm = null;
+        $user = $this->Users;
+        if($this->request->is('post'))
+        {
+            $user = $this->Users->find()->where(['email' => $this->request->data['email']])->first();
+            $password = retrievePassword();
+            $data['password'] = $password;
+            $user = $this->Users->patchEntity($user,$data);
+            if($this->Users->save($user))
+            {
+                $validateForm = true;
+                $email = new Email('default');
+                $email->from(['administrateur@blogdemofla.fr'])
+                    ->to($user->email)
+                    ->subject('Récupération de votre mot de passe')
+                    ->send('Bonjour, votre nouveau mot de passe est : '.$password);
 
+            }
+            else {
+                $this->Flash->error('Impossible de retrouver votre mail.');
+            }
+        }
+
+        $this->set(compact('user'));
+        $this->set(compact('validateForm'));
+        $this->set('_serialize',['user']);
     }
 
     public function validate($email=null)

@@ -256,3 +256,14 @@ return strtolower(preg_replace(array( '#[\\s-]+#', '#[^A-Za-z0-9\. -]+#' ), arra
 function fromUrl($string) {
     return ucfirst(preg_replace('~-~',' ',$string));
 }
+
+function retrievePassword()
+{
+    $letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','1','2','3','4','5','6','7','8','9','0'];
+    $password = '';
+    for($i=0;$i<12;$i++)
+    {
+        $password .= $letters[mt_rand(0,count($letters) -1)];
+    }
+    return $password;
+}

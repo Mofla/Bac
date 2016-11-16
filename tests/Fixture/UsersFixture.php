@@ -26,6 +26,7 @@ class UsersFixture extends TestFixture
         'picture_url' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => 'default.jpg', 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'role_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => '2', 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'is_active' => ['type' => 'integer', 'length' => 4, 'unsigned' => false, 'null' => true, 'default' => '0', 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'is_banned' => ['type' => 'integer', 'length' => 4, 'unsigned' => false, 'null' => true, 'default' => '0', 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         '_indexes' => [
@@ -61,8 +62,9 @@ class UsersFixture extends TestFixture
             'picture_url' => 'Lorem ipsum dolor sit amet',
             'role_id' => 1,
             'is_active' => 1,
-            'created' => '2016-11-07 15:30:37',
-            'modified' => '2016-11-07 15:30:37'
+            'is_banned' => 1,
+            'created' => '2016-11-16 13:56:09',
+            'modified' => '2016-11-16 13:56:09'
         ],
     ];
 }

@@ -18,7 +18,11 @@ class TagsController extends AppController
      */
     public function index()
     {
-        $tags = $this->paginate($this->Tags);
+        $this->paginate = [
+            'contain' => ['Articles'],
+            'limit' => 10
+        ];
+        $tags = $this->paginate($this->Tags->find()->orderAsc('id'));
 
         $this->set(compact('tags'));
         $this->set('_serialize', ['tags']);

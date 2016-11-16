@@ -13,15 +13,9 @@
             </fieldset>
             <hr>
             <div class="text-center">
-                <?= $this->Form->button('Valider',['class' => 'btn btn-lg btn-info']); ?>
+                <?= $this->Form->submit('Valider',['class' => 'btn btn-lg btn-info']); ?>
             </div>
             <?= $this->Form->end() ?>
-        </div>
-        <hr>
-        <div class=" well text-center">
-            Mot de passe oublié ? <?= $this->Html->link('cliquez ici',['action' => 'retrieve']) ?>
-             -
-            Pas encore membre ? <?= $this->Html->link('cliquez ici',['action' => 'register']) ?>
         </div>
     </div>
 </div>

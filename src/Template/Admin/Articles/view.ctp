@@ -1,11 +1,10 @@
 <div class="row">
-    <!-- tags -->
-    <?= $this->cell('Tags') ?>
-    <!-- articles -->
-    <div class="col-xs-12 col-md-8 col-md-offset-1">
+    <!-- article -->
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
         <div class="panel panel-default boxshadow">
             <div class="panel-heading panel-heading-articles text-center">
                 <?= h($article->name) ?>
+                <?= $this->Html->link('Editer',['action' => 'edit', $article->id,toUrl(h($article->name))],['class' => 'btn btn-md btn-info']) ?>
             </div>
             <div class="panel-tags">
                 <div class="panel-tags-text-left">
@@ -51,6 +50,7 @@
         <br>
         <?php if($this->request->session()->read('Auth.User.id') != null): ?>
             <div class="text-center">
+                <button id="btn-view-comments" class="btn btn-md btn-warning">Voir les commentaires</button>
                 <button id="btn-add-comments" class="btn btn-md btn-success">Ajouter un commentaire</button>
                 <button id="btn-remove-comments" class="btn btn-md btn-danger collapse">Annuler</button>
             </div>
@@ -73,9 +73,9 @@
             <br>
         </div>
         <!-- zone des commentaires -->
-        <div class="comments">
+        <div id="comments" class="comments">
             <?php foreach ($comments as $comment): ?>
-                <div class="row">
+                <div class="row comments collapse">
                     <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 media boxshadow">
                         <div class="media-left">
                             <br>
@@ -161,5 +161,19 @@
 
     });
 
-    $(document).ready(showDiv());
+    $(document).on('click','#btn-view-comments',function(){
+        callComments();
+    })
+    function callComments()
+    {
+        $.ajax({
+            type:"GET",
+            url:"<?= $this->Url->build(['controller' => 'Comments','action' => 'view','prefix' => false]) ?>",
+            data:{id:<?= intval($article->id) ?>},
+            success:function (data) {
+                $('#comments').empty().hide().delay(100).html(data).show("slide", { direction: "left" }, 600);
+                $('html, body').animate({ scrollTop: $('#comments').offset().top+300 }, 'slow');
+            }
+        })
+    }
 </script>

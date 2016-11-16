@@ -10,7 +10,9 @@ use Cake\Validation\Validator;
  * Users Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Roles
+ * @property \Cake\ORM\Association\HasMany $Articles
  * @property \Cake\ORM\Association\HasMany $Comments
+ * @property \Cake\ORM\Association\HasMany $Likes
  *
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
  * @method \App\Model\Entity\User newEntity($data = null, array $options = [])
@@ -45,7 +47,13 @@ class UsersTable extends Table
             'foreignKey' => 'role_id',
             'joinType' => 'INNER'
         ]);
+        $this->hasMany('Articles', [
+            'foreignKey' => 'user_id'
+        ]);
         $this->hasMany('Comments', [
+            'foreignKey' => 'user_id'
+        ]);
+        $this->hasMany('Likes', [
             'foreignKey' => 'user_id'
         ]);
     }
@@ -90,6 +98,10 @@ class UsersTable extends Table
         $validator
             ->integer('is_active')
             ->allowEmpty('is_active');
+
+        $validator
+            ->integer('is_banned')
+            ->allowEmpty('is_banned');
 
         return $validator;
     }

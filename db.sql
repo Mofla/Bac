@@ -37,7 +37,7 @@ CREATE TABLE `articles`
 CREATE TABLE `comments`
 (
   id INT UNIQUE AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100) UNIQUE NOT NULL,
+  name VARCHAR(100) NOT NULL,
   content TEXT NOT NULL,
   article_id INT NOT NULL,
   user_id INT NOT NULL,
@@ -75,17 +75,18 @@ ALTER TABLE comments
 ADD CONSTRAINT fk_article_id FOREIGN KEY (article_id) REFERENCES articles(id);
 
 ALTER TABLE likes
-ADD CONSTRAINT fk_like_comment_id FOREIGN KEY (comment_id) REFERENCES comments(id);
+ADD CONSTRAINT fk_li_comment_id FOREIGN KEY (comment_id) REFERENCES comments(id);
 
 ALTER TABLE likes
-ADD CONSTRAINT fk_like_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+ADD CONSTRAINT fk_li_user_id FOREIGN KEY (user_id) REFERENCES users(id);
 
 INSERT INTO roles (id, name, description) VALUES (1,'Administrateur','Possède tous les droits.');
 INSERT INTO roles (id, name, description) VALUES (2,'Utilisateur','Peut voir les articles et poster des commentaires.');
 
 INSERT INTO `users` (`id`, `username`, `firstname`, `lastname`, `password`, `email`, `picture_url`, `role_id`, `is_active`, `is_banned`, `created`, `modified`) VALUES
+(2, 'Mofla', 'Florent', 'Maillard', '$2y$10$/YT22OQPog3K1TQYwX1H7.XV3dZ.dHNfj0x5nlxYwxsUJDFjgXor2', 'blogdemofla@gmail.com', 'default.jpg', 1, 1, 0, '2016-11-10 09:20:02', '2016-11-10 09:20:02'),
 (1, 'admin', 'Billy', 'Peltzer', '$2y$10$/YT22OQPog3K1TQYwX1H7.XV3dZ.dHNfj0x5nlxYwxsUJDFjgXor2', 'admin@admin.fr', 'default.jpg', 1, 1, 0, '2016-11-10 09:20:02', '2016-11-10 09:20:02'),
-(2, 'Mofla', 'Florent', 'Maillard', '$2y$10$XPrn/e.iC81qoHLOjYt7.O5We69R4j5/lvI7y0uTeI48mXqgH3zNO', 'florent.maillard.pro@gmail.com', '80787264001478788478.jpeg', 2, 1, '2016-11-10 14:17:35', '2016-11-10 15:20:15', '2016-11-10 15:20:15');
+(3, 'Flo', 'Florent', 'Maillard', '$2y$10$XPrn/e.iC81qoHLOjYt7.O5We69R4j5/lvI7y0uTeI48mXqgH3zNO', 'florent.maillard.pro@gmail.com', '80787264001478788478.jpeg', 2, 1, 0,'2016-11-10 14:17:35', '2016-11-10 15:20:15');
 
 INSERT INTO tags (id, name) VALUES (1,'Cinéma');
 INSERT INTO tags (id, name) VALUES (2,'Littérature');

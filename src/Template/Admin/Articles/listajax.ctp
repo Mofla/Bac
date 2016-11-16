@@ -7,6 +7,7 @@
         <th scope="col"><?= $this->Paginator->sort('tag_id') ?></th>
         <th scope="col"><?= $this->Paginator->sort('created') ?></th>
         <th scope="col"><?= $this->Paginator->sort('modified') ?></th>
+        <th scope="col"><span class="glyphicon glyphicon-comment"></span></th>
         <th scope="col" class="actions"><?= __('Actions') ?></th>
     </tr>
     </thead>
@@ -23,6 +24,7 @@
             <td><?= $article->has('tag') ? $this->Html->link($article->tag->name, ['controller' => 'Tags', 'action' => 'view', $article->tag->id]) : '' ?></td>
             <td><?= h($article->created) ?></td>
             <td><?= h($article->modified) ?></td>
+            <td><?= count($article->comments) ?></td>
             <td class="actions">
                 <div class="dropdown">
                     <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

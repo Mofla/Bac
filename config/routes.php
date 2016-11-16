@@ -117,14 +117,15 @@ Plugin::routes();
 Router::prefix('admin', function ($routes) {
     $routes->connect('/', ['controller' => 'Users', 'action' => 'gestion']);
     $routes->connect('/utilisateurs/',['controller' => 'Users', 'action' => 'index']);
-    $routes->connect('/utilisateurs/profil/:id-:username', ['controller' => 'Articles', 'action' => 'view'],[
+    $routes->connect('/utilisateurs/:id-:username', ['controller' => 'Users', 'action' => 'view'],[
         'pass' => ['id','username'],
         'id' => '[0-9]+'
     ]);
-    $routes->connect('/utilisateurs/editer/:id-:username', ['controller' => 'Articles', 'action' => 'edit'],[
+    $routes->connect('/utilisateurs/editer/:id-:username', ['controller' => 'Users', 'action' => 'edit'],[
         'pass' => ['id','username'],
         'id' => '[0-9]+'
     ]);
+    $routes->connect('/articles/',['controller' => 'Articles', 'action' => 'index']);
     $routes->connect('/article/:id-:title', ['controller' => 'Articles', 'action' => 'view'],[
         'pass' => ['id','title'],
         'id' => '[0-9]+'
@@ -136,6 +137,10 @@ Router::prefix('admin', function ($routes) {
     $routes->connect('/article/ajouter', ['controller' => 'Articles', 'action' => 'add']);
     $routes->connect('/categories/', ['controller' => 'Tags', 'action' => 'index']);
     $routes->connect('/categories/ajouter', ['controller' => 'Tags', 'action' => 'add']);
+    $routes->connect('/categories/:id-:title', ['controller' => 'Tags', 'action' => 'view'],[
+        'pass' => ['id','title'],
+        'id' => '[0-9]+'
+    ]);
     $routes->connect('/categories/editer/:id-:title', ['controller' => 'Tags', 'action' => 'edit'],[
         'pass' => ['id','title'],
         'id' => '[0-9]+'

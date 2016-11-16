@@ -31,11 +31,10 @@ $('.form-confirm').submit(function() {
 $('.description').on('click',function(event) {
     event.preventDefault();
     $(this).next('.description-box').slideToggle();
+    $(this).next('.description-box').unbind().bind('click',function(){
+        $(this).slideToggle();
+    })
 });
-
-$('.close-description-box').on('click',function () {
-    $(this).closest('.description-box').slideToggle();
-})
 
 
 // box-articles animation (showing up one per one)

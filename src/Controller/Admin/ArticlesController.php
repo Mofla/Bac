@@ -28,15 +28,21 @@ class ArticlesController extends AppController
 
     public function listajax($state=null)
     {
-        $this->paginate = [
-            'contain' => ['Tags'],
-            'limit' => 10
-        ];
-        ($this->request->query['state'] != null) ? $state = $this->request->query['state'] : $state = 1;
-        $articles = $this->paginate($this->Articles->find()->where(['state' => $state]));
+        if($this->request->is('ajax'))
+        {
+            $this->paginate = [
+                'contain' => ['Tags','Comments'],
+                'limit' => 10
+            ];
+            ($this->request->query['state'] != null) ? $state = $this->request->query['state'] : $state = 1;
+            $articles = $this->paginate($this->Articles->find()->where(['state' => $state]));
 
-        $this->set(compact('articles'));
-        $this->set('_serialize', ['articles']);
+            $this->set(compact('articles'));
+            $this->set('_serialize', ['articles']);
+        }
+        else{
+            return $this->redirect($this->referer());
+        }
     }
 
     /**

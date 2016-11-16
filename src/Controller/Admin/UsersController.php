@@ -27,6 +27,25 @@ class UsersController extends AppController
         $this->set('_serialize', ['users']);
     }
 
+    public function listajax($state=null)
+    {
+        if($this->request->is('ajax'))
+        {
+            $this->paginate = [
+                'contain' => ['Comments'],
+                'limit' => 10
+            ];
+            ($this->request->query['state'] != null) ? $state = $this->request->query['state'] : $state = 1;
+            $users = $this->paginate($this->Users->find()->where(['is_active' => $state]));
+
+            $this->set(compact('users'));
+            $this->set('_serialize', ['users']);
+        }
+        else{
+            return $this->redirect($this->referer());
+        }
+    }
+
     /**
      * View method
      *
@@ -74,24 +93,39 @@ class UsersController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($id = null,$username = null)
     {
-        $user = $this->Users->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->data);
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        $user = $this->Users->get($id);
+        if($this->request->is(['patch','post','put']))
+        {
+            if($this->request->data['picture_url']['name'])
+            {
+                $image = $user->picture_url;
+                if($image !== 'default.jpg')
+                {
+                    $this->Upload->deleteImg($image);
+                }
+                $this->request->data['picture_url'] = $this->Upload->uploadImg($this->request->data['picture_url'],[
+                    'rename' => [
+                        'id' => $this->Auth->User('id')
+                    ]
+                ]);
+            }
+            else {
+                unset($this->request->data['picture_url']);
+            }
+            $user = $this->Users->patchEntity($user,$this->request->data);
+            if($this->Users->save($user))
+            {
+                $this->Flash->success('Profil correctement édité.');
+                return $this->redirect($this->referer());
+            }
+            else {
+                $this->Flash->error('Edition impossible.');
             }
         }
-        $roles = $this->Users->Roles->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'roles'));
-        $this->set('_serialize', ['user']);
+        $this->set(compact('user'));
+        $this->set('_serialize',['user']);
     }
 
     /**
@@ -105,6 +139,8 @@ class UsersController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
+        $this->Users->Likes->deleteAll(['user_id' => $id]);
+        $this->Users->Comments->deleteAll(['user_id' => $id]);
         if ($this->Users->delete($user)) {
             $this->Flash->success(__('The user has been deleted.'));
         } else {

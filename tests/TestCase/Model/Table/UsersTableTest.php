@@ -27,9 +27,9 @@ class UsersTableTest extends TestCase
         'app.users',
         'app.roles',
         'app.comments',
-        'app.article_comments',
         'app.articles',
-        'app.tags'
+        'app.tags',
+        'app.likes'
     ];
 
     /**

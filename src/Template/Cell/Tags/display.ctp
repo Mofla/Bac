@@ -1,7 +1,7 @@
 <!-- mobile -->
-<div class="col-xs-12 col-sm-12 hidden-md hidden-lg">
+<div class="col-xs-12 col-sm-12 hidden-md hidden-lg text-center">
     <div class="dropdown">
-        <button href="" class="btn btn-lg dropdown-toggle" data-toggle="dropdown">Tags<b class="caret"></b></button>
+        <button id="btn-tags" href="" class="btn btn-lg dropdown-toggle" data-toggle="dropdown">Tags <b class="caret"></b></button>
         <div class="dropdown-menu list-group boxshadow">
             <?= $this->Html->link('<span class="glyphicon glyphicon-share-alt text-gold"></span> - Tous les articles',['controller' => 'Articles','action' => 'index'],['class' => 'list-group-item','escape' => false]) ?>
             <?php foreach($tags as $tag): ?>

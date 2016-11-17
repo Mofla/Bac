@@ -28,6 +28,10 @@
                             $crop = mb_substr($content, 0, 300);
                             (strlen($content) > strlen($crop)) ? $crop .= '...' : $crop = $content;
                             ?>
+                            <?php if(h($article->picture_url) !== 'default.jpg'): ?>
+                                <?= $this->Html->image('articles/320x320/'.h($article->picture_url),['class' => 'img-corner img-responsive center-block','alt' => h($article->name),'title' => h($article->name)]) ?>
+                                <hr>
+                            <?php endif; ?>
                             <?= nl2br($crop) ?>
                         </div>
                     </div>

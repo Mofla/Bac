@@ -38,6 +38,7 @@
                         <li class="dropdown-header">Choix</li>
                         <li><?= $this->Html->link('Voir', ['action' => 'view', $article->id,toUrl(h($article->name))]) ?></li>
                         <li><?= $this->Html->link('Editer', ['action' => 'edit', $article->id,toUrl(h($article->name))]) ?></li>
+                        <li><?= $this->Html->link('Gérer les commentaires', ['controller' => 'Comments','action' => 'gestion', $article->id]) ?></li>
                         <?php if($article->state == 0 || $article->state == 2): ?>
                             <li><?= $this->Form->postLink('Publier', ['action' => 'publish', $article->id], ['confirm' => __('Publier cet article ?', $article->id)]) ?></li>
                         <?php elseif($article->state == 1): ?>

@@ -21,6 +21,10 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-xs-12">
+                        <?php if(h($article->picture_url) !== 'default.jpg'): ?>
+                            <?= $this->Html->image('articles/320x320/'.h($article->picture_url),['class' => 'img-corner img-responsive center-block','alt' => h($article->name),'title' => h($article->name)]) ?>
+                            <hr>
+                        <?php endif; ?>
                         <?= nl2br(h($article->content)) ?>
                     </div>
                 </div>

@@ -28,35 +28,78 @@ class UploadComponent extends Component
         else{
             $file_newName = $upload['name'].'.'.$file_extension;
         }
-        // resize
-        if(isset($options['resize']))
+        // directory
+        if(isset($options['directory']))
         {
-
+            $directory = $options['directory'];
         }
+        else {
+            $directory = 'avatars';
+        }
+        // resize
+        if(isset($options['resize']['small']))
+        {
+            $small = $options['resize']['small'];
+        }
+        else{
+            $small = 40;
+            $smallDir = $small.'x'.$small;
+        }
+        if(isset($options['resize']['medium']))
+        {
+            $medium = $options['resize']['medium'];
+            $mediumDir = $medium.'x'.$medium;
+        }
+        else{
+            $medium = 200;
+        }
+        // sub directories
+        $smallDir = $small.'x'.$small;
+        $mediumDir = $medium.'x'.$medium;
         // upload
-        $path = WWW_ROOT . '/img/avatars/original/' . $file_newName;
+        $path = WWW_ROOT . '/img/'.$directory.'/original/' . $file_newName;
         $first_copy = $upload;
         if(move_uploaded_file($upload['tmp_name'],$path))
         {
-            $path = WWW_ROOT . '/img/avatars/original/' . $file_newName;
+            $path = WWW_ROOT . '/img/'.$directory.'/original/' . $file_newName;
             // resize as 200x200
-            $new_path = WWW_ROOT . '/img/avatars/200x200/' . $file_newName;
-            $this->resize($path,$file_extension,$new_path,200);
+            $new_path = WWW_ROOT . '/img/'.$directory.'/'.$mediumDir.'/' . $file_newName;
+            $this->resize($path,$file_extension,$new_path,$medium);
             //resize as 40x40
-            $new_path = WWW_ROOT . '/img/avatars/40x40/' . $file_newName;
-            $this->resize($path,$file_extension,$new_path,40);
+            $new_path = WWW_ROOT . '/img/'.$directory.'/'.$smallDir.'/' . $file_newName;
+            $this->resize($path,$file_extension,$new_path,$small);
             return $file_newName;
         }
         else {
             return 'default.jpg';
         }
     }
-    public function deleteImg($image)
+    public function deleteImg($image,$options)
     {
-        $files = ['40x40','200x200','original'];
+        if(isset($options['sizes']))
+        {
+            foreach($options['sizes'] as $size)
+            {
+                $files[] = $size.'x'.$size;
+            }
+            $files[] = 'original';
+        }
+        else {
+            $files = ['40x40','200x200','original'];
+        }
+
+        // directory
+        if(isset($options['directory']))
+        {
+            $directory = $options['directory'];
+        }
+        else {
+            $directory = 'avatars';
+        }
+
         foreach($files as $file)
         {
-            $path = WWW_ROOT . '/img/avatars/'.$file.'/' . $image;
+            $path = WWW_ROOT . '/img/'.$directory.'/'.$file.'/' . $image;
             @unlink($path);
         }
     }

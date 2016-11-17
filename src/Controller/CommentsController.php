@@ -46,7 +46,7 @@ class CommentsController extends AppController
     {
         $this->paginate = [
             'contain' => ['Users','Likes'],
-            'limit' => 2
+            'limit' => 10
         ];
         ($this->request->query['id'] != null) ? $id = $this->request->query['id'] : '';
         $comments = $this->paginate($this->Comments->find()->where(['article_id' => $id])->orderDesc('Comments.created'));

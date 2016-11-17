@@ -27,6 +27,18 @@ class CommentsController extends AppController
         $this->set('_serialize', ['comments']);
     }
 
+    public function gestion($id=null)
+    {
+        $this->paginate = [
+            'contain' => ['Users','Likes','Articles'],
+            'limit' => 10
+        ];
+
+        $comments = $this->paginate($this->Comments->find()->where(['article_id' => $id])->orderDesc('Comments.created'));
+        $this->set(compact('comments'));
+        $this->set('_serialize', ['comments']);
+    }
+
     /**
      * View method
      *

@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <?= $this->Html->link('Blog de Mofla',['controller' => 'Articles', 'action' => 'index','prefix' => false],['class' => 'navbar-brand']) ?>
+            <?= $this->Html->link('Blog de Mofla', ['controller' => 'Articles', 'action' => 'index', 'prefix' => false], ['class' => 'navbar-brand']) ?>
 
         </div>
         <div class="navbar-collapse collapse">
@@ -152,14 +152,22 @@
             'index' => 'Index',
             'add' => 'Ajouter',
             'edit' => 'Editer',
-            'view' => 'Voir'
+            'view' => 'Voir',
+            'gestion' => 'Gérer'
         ];
         ?>
-        <?= $this->Html->link($replace[$this->request->prefix], ['controller' => $this->request->controller, 'action' => 'index', 'prefix' => $this->request->prefix]) ?>
-        /
-        <?= $this->Html->link($replace[$this->request->controller], ['controller' => $this->request->controller, 'action' => 'index']) ?>
-        /
-        <?php if(isset($this->request->action)): ?>
+        <?php if ($this->request->controller != 'Comments'): ?>
+            <?= $this->Html->link($replace[$this->request->prefix], ['controller' => $this->request->controller, 'action' => 'index', 'prefix' => $this->request->prefix]) ?>
+             /
+            <?= $this->Html->link($replace[$this->request->controller], ['controller' => $this->request->controller, 'action' => 'index']) ?>
+            /
+        <?php else: ?>
+            <?= $this->Html->link($replace[$this->request->prefix], ['controller' => 'Articles', 'action' => 'index', 'prefix' => $this->request->prefix]) ?>
+            /
+            <?= $this->Html->link($replace[$this->request->controller], ['controller' => 'Articles', 'action' => 'index']) ?>
+            /
+        <?php endif; ?>
+        <?php if (isset($this->request->action)): ?>
             <?= $replace[$this->request->action] ?>
         <?php endif; ?>
     </div>

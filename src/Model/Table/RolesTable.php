@@ -34,6 +34,7 @@ class RolesTable extends Table
 
         $this->table('roles');
         $this->displayField('name');
+        $this->primaryKey('id');
 
         $this->hasMany('Users', [
             'foreignKey' => 'role_id'
@@ -50,8 +51,7 @@ class RolesTable extends Table
     {
         $validator
             ->integer('id')
-            ->requirePresence('id', 'create')
-            ->notEmpty('id')
+            ->allowEmpty('id', 'create')
             ->add('id', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator

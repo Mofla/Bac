@@ -60,7 +60,7 @@ class ArticlesController extends AppController
         $this->paginate = [
             'limit' => 8
         ];
-        $comments = $this->paginate($this->Articles->Comments->find()->contain(['Users','Likes'])->where(['article_id' => $id])->orderDesc('Comments.created'));
+        $comments = $this->paginate($this->Articles->Comments->find()->contain(['Users','Loves'])->where(['article_id' => $id])->orderDesc('Comments.created'));
         $comment = $this->Articles->Comments->newEntity();
         if($this->request->is('post'))
         {
@@ -191,7 +191,7 @@ class ArticlesController extends AppController
         }
         // condition IN
         if(!empty($likes)) {
-            $this->Articles->Comments->Likes->deleteAll(['comment_id IN' => $likes]);
+            $this->Articles->Comments->Loves->deleteAll(['comment_id IN' => $likes]);
         }
         // Then we delete all comments
         $this->Articles->Comments->deleteAll(['article_id' => $id]);

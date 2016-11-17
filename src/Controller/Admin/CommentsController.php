@@ -30,7 +30,7 @@ class CommentsController extends AppController
     public function gestion($id=null)
     {
         $this->paginate = [
-            'contain' => ['Users','Likes','Articles'],
+            'contain' => ['Users','Loves','Articles'],
             'limit' => 10
         ];
 
@@ -118,7 +118,7 @@ class CommentsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $comment = $this->Comments->get($id);
         // delete all likes
-        $this->Comments->Likes->deleteAll(['comment_id' => $id]);
+        $this->Comments->Loves->deleteAll(['comment_id' => $id]);
         if ($this->Comments->delete($comment)) {
             $this->Flash->success(__('The comment has been deleted.'));
         } else {

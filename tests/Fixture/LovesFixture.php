@@ -4,10 +4,10 @@ namespace App\Test\Fixture;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * LikesFixture
+ * LovesFixture
  *
  */
-class LikesFixture extends TestFixture
+class LovesFixture extends TestFixture
 {
 
     /**
@@ -21,15 +21,9 @@ class LikesFixture extends TestFixture
         'comment_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'user_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'state' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
-        '_indexes' => [
-            'fk_love_comment_id' => ['type' => 'index', 'columns' => ['comment_id'], 'length' => []],
-            'fk_love_user_id' => ['type' => 'index', 'columns' => ['user_id'], 'length' => []],
-        ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
             'id' => ['type' => 'unique', 'columns' => ['id'], 'length' => []],
-            'fk_love_user_id' => ['type' => 'foreign', 'columns' => ['user_id'], 'references' => ['users', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
-            'fk_love_comment_id' => ['type' => 'foreign', 'columns' => ['comment_id'], 'references' => ['comments', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',

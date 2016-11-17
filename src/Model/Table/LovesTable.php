@@ -7,23 +7,20 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Comments Model
+ * Loves Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Articles
+ * @property \Cake\ORM\Association\BelongsTo $Comments
  * @property \Cake\ORM\Association\BelongsTo $Users
- * @property \Cake\ORM\Association\HasMany $Loves
  *
- * @method \App\Model\Entity\Comment get($primaryKey, $options = [])
- * @method \App\Model\Entity\Comment newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Comment[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Comment|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Comment patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Comment[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Comment findOrCreate($search, callable $callback = null)
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
+ * @method \App\Model\Entity\Love get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Love newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Love[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Love|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Love patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Love[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Love findOrCreate($search, callable $callback = null)
  */
-class CommentsTable extends Table
+class LovesTable extends Table
 {
 
     /**
@@ -36,22 +33,17 @@ class CommentsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('comments');
-        $this->displayField('name');
+        $this->table('loves');
+        $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->addBehavior('Timestamp');
-
-        $this->belongsTo('Articles', [
-            'foreignKey' => 'article_id',
+        $this->belongsTo('Comments', [
+            'foreignKey' => 'comment_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
-        ]);
-        $this->hasMany('Loves', [
-            'foreignKey' => 'comment_id'
         ]);
     }
 
@@ -69,12 +61,9 @@ class CommentsTable extends Table
             ->add('id', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
-            ->requirePresence('name', 'create')
-            ->notEmpty('name');
-
-        $validator
-            ->requirePresence('content', 'create')
-            ->notEmpty('content');
+            ->boolean('state')
+            ->requirePresence('state', 'create')
+            ->notEmpty('state');
 
         return $validator;
     }
@@ -89,7 +78,7 @@ class CommentsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->isUnique(['id']));
-        $rules->add($rules->existsIn(['article_id'], 'Articles'));
+        $rules->add($rules->existsIn(['comment_id'], 'Comments'));
         $rules->add($rules->existsIn(['user_id'], 'Users'));
 
         return $rules;

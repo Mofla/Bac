@@ -8,9 +8,9 @@
             </div>
             <div class="panel-tags">
                 <div class="panel-tags-text-left">
-                    Posté le : <?= h($article['created']) ?>
-                    <?php if(h($article['modified']) !== h($article['created'])): ?>
-                        - Modifié le : <?= h($article['modified']) ?>
+                    Posté le : <?= h($article->created->i18nformat('EEEE dd MMMM YYYY hh:mm:ss')) ?>
+                    <?php if (h($article['modified']) !== h($article['created'])): ?>
+                        - Modifié le : <?= h($article->modified->i18nformat('EEEE dd MMMM YYYY hh:mm:ss')) ?>
                     <?php endif; ?>
                 </div>
                 <div class="panel-tags-text-right">
@@ -48,15 +48,17 @@
         </div>
 
         <br>
-        <?php if($this->request->session()->read('Auth.User.id') != null): ?>
+
             <div class="text-center">
                 <button id="btn-view-comments" class="btn btn-md btn-warning">Voir les commentaires</button>
-                <button id="btn-add-comments" class="btn btn-md btn-success">Ajouter un commentaire</button>
                 <button id="btn-remove-comments" class="btn btn-md btn-danger collapse">Annuler</button>
+                <?php if($this->request->session()->read('Auth.User.id') != null): ?>
+                <button id="btn-add-comments" class="btn btn-md btn-success">Ajouter un commentaire</button>
+                <?php endif; ?>
             </div>
-        <?php endif; ?>
+
         <br>
-        <!-- zone du formulaire d'ajout des commentaires -->
+        <!-- add comments -->
         <div id="add-comments" class="collapse">
             <div class="row">
                 <div class="col-xs-12 col-md-6 col-md-offset-3 well boxshadow">
@@ -72,7 +74,7 @@
             </div>
             <br>
         </div>
-        <!-- zone des commentaires -->
+        <!-- !add comments -->
         <div id="comments" class="comments">
             <?php foreach ($comments as $comment): ?>
                 <div class="row comments collapse">
@@ -86,9 +88,9 @@
                             <br>
                             <span class="comment-sub text-muted">
                     <?php if(h($comment['created']) !== h($comment['modified'])): ?>
-                        Modifié le : <?= h($comment['modified']) ?>
+                        Modifié le : <?= h($comment->modified->i18nformat('EEEE dd MMMM YYYY hh:mm:ss')) ?>
                     <?php else: ?>
-                        Commenté le : <?= h($comment['created']) ?>
+                        Commenté le : <?= h($comment->created->i18nformat('EEEE dd MMMM YYYY hh:mm:ss')) ?>
                     <?php endif; ?>
                                 - Par : <?= $this->Html->link(h($comment->user->username),['controller' => 'Users','action' => 'view',$comment->user->id,toUrl(h($comment->user->username))],['class' => 'description']) ?>
                                 <!-- pop-up -->
@@ -163,7 +165,13 @@
 
     $(document).on('click','#btn-view-comments',function(){
         callComments();
-    })
+        $(this).hide().next('#btn-remove-comments').show();
+    });
+
+    $(document).on('click','#btn-remove-comments',function(){
+        $('#comments').hide().empty();
+        $(this).hide().prev('#btn-view-comments').show();
+    });
     function callComments()
     {
         $.ajax({

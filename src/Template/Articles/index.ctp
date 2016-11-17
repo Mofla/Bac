@@ -10,9 +10,9 @@
                 </div>
                 <div class="panel-tags">
                     <div class="panel-tags-text-left">
-                        Posté le : <?= h($article['created']) ?>
+                        Posté le : <?= h($article->created->i18nformat('EEEE dd MMMM YYYY hh:mm:ss')) ?>
                         <?php if (h($article['modified']) !== h($article['created'])): ?>
-                            - Modifié le : <?= h($article['modified']) ?>
+                            - Modifié le : <?= h($article->modified->i18nformat('EEEE dd MMMM YYYY hh:mm:ss')) ?>
                         <?php endif; ?>
                     </div>
                     <div class="panel-tags-text-right">

@@ -8,7 +8,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <span class="navbar-brand" href="">Blog de Mofla</span>
+            <?= $this->Html->link('Blog de Mofla',['controller' => 'Articles', 'action' => 'index','prefix' => false],['class' => 'navbar-brand']) ?>
+
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">

@@ -21,9 +21,9 @@
                     <br>
                     <span class="comment-sub text-muted">
                     <?php if (h($comment['created']) !== h($comment['modified'])): ?>
-                        Modifié le : <?= h($comment['modified']) ?>
+                        Modifié le : <?= h($comment->modified->i18nformat('EEEE dd MMMM YYYY hh:mm:ss')) ?>
                     <?php else: ?>
-                        Commenté le : <?= h($comment['created']) ?>
+                        Commenté le : <?= h($comment->created->i18nformat('EEEE dd MMMM YYYY hh:mm:ss')) ?>
                     <?php endif; ?>
                         - Par : <?= $this->Html->link(h($comment->user->username), ['controller' => 'Users', 'action' => 'view', $comment->user->id, toUrl(h($comment->user->username))]) ?>
                     </span>

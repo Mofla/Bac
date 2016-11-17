@@ -22,9 +22,9 @@
                     <label><span class="glyphicon glyphicon-envelope"></span> Email : </label>
                     <?= h($user->email) ?>
                     <hr>
-                    <span class="text-muted text-italic">Inscrit depuis le : <?= h($user['created']) ?></span>
+                    <span class="text-muted text-italic">Inscrit depuis le : <?= h($user->created->i18nformat('EEEE dd MMMM YYYY hh:mm:ss')) ?></span>
                     <hr>
-                    <span class="text-muted text-italic">Dernière connexion le : <?= h($user['modified']) ?></span>
+                    <span class="text-muted text-italic">Dernière connexion le : <?= h($user->modified->i18nformat('EEEE dd MMMM YYYY hh:mm:ss')) ?></span>
 
 
                 </div>

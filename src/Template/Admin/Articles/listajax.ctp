@@ -22,8 +22,8 @@
             <td><?= $this->Number->format($article->id) ?></td>
             <td><?= h($article->name) ?></td>
             <td><?= $article->has('tag') ? $this->Html->link($article->tag->name, ['controller' => 'Tags', 'action' => 'view', $article->tag->id]) : '' ?></td>
-            <td><?= h($article->created) ?></td>
-            <td><?= h($article->modified) ?></td>
+            <td><?= h($article->created->i18nformat('EEEE dd MMMM YYYY hh:mm:ss')) ?></td>
+            <td><?= h($article->modified->i18nformat('EEEE dd MMMM YYYY hh:mm:ss')) ?></td>
             <td><?= count($article->comments) ?></td>
             <td class="actions">
                 <div class="dropdown">

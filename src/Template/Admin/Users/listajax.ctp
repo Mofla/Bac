@@ -21,8 +21,8 @@
             <td><?= $this->Number->format($user->id) ?></td>
             <td><?= h($user->username) ?></td>
             <td><?= h($user->email) ?></td>
-            <td><?= h($user->created) ?></td>
-            <td><?= h($user->modified) ?></td>
+            <td><?= h($user->created->i18nformat('EEEE dd MMMM YYYY hh:mm:ss')) ?></td>
+            <td><?= h($user->modified->i18nformat('EEEE dd MMMM YYYY hh:mm:ss')) ?></td>
             <td class="actions">
                 <div class="dropdown">
                     <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

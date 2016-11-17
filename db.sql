@@ -66,7 +66,7 @@ ALTER TABLE articles
 ADD CONSTRAINT fk_tag_id FOREIGN KEY(tag_id) REFERENCES tags(id);
 
 ALTER TABLE articles
-ADD CONSTRAINT fk_art_user_id FOREIGN KEY(user_id) REFERENCES users(id);
+ADD CONSTRAINT fk_arti_user_id FOREIGN KEY(user_id) REFERENCES users(id);
 
 ALTER TABLE comments
 ADD CONSTRAINT fk_user_id FOREIGN KEY(user_id) REFERENCES users(id);

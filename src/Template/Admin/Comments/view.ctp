@@ -53,9 +53,9 @@
                 <td><?= h($articleComments->article_id) ?></td>
                 <td><?= h($articleComments->comment_id) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'ArticleComments', 'action' => 'view', $articleComments->]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'ArticleComments', 'action' => 'edit', $articleComments->]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'ArticleComments', 'action' => 'delete', $articleComments->], ['confirm' => __('Are you sure you want to delete # {0}?', $articleComments->)]) ?>
+                    <?= $this->Html->link(__('View'), ['controller' => 'ArticleComments', 'action' => 'view', $articleComments->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'ArticleComments', 'action' => 'edit', $articleComments->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'ArticleComments', 'action' => 'delete', $articleComments->id], ['confirm' => __('Are you sure you want to delete # {0}?', $articleComments->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

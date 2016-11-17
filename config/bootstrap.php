@@ -102,7 +102,8 @@ if (!Configure::read('debug')) {
  * Set server timezone to UTC. You can change it to another timezone of your
  * choice but using UTC makes time calculations / conversions easier.
  */
-date_default_timezone_set('UTC');
+//date_default_timezone_set('UTC');
+date_default_timezone_set('Europe/Paris');
 
 /*
  * Configure the mbstring extension to use the correct encoding.
@@ -113,7 +114,13 @@ mb_internal_encoding(Configure::read('App.encoding'));
  * Set the default locale. This controls how dates, number and currency is
  * formatted and sets the default language to use for translations.
  */
-ini_set('intl.default_locale', Configure::read('App.defaultLocale'));
+//ini_set('intl.default_locale', Configure::read('App.defaultLocale'));
+/*
+ * Date
+ */
+ini_set('intl.default_locale', 'fr_FR');
+Configure::write('Config.language', 'fra');
+setlocale(LC_ALL, 'fra');
 
 /*
  * Register application error and exception handlers.
@@ -223,6 +230,7 @@ if (Configure::read('debug')) {
 }
 
 Plugin::load('Migrations');
+
 
 function noSpecials($text) {
     $utf8 = [

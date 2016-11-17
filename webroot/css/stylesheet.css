@@ -3,6 +3,25 @@ body{
     background-color: rgba(29,118,144,0.2);
 }
 
+#banner
+{
+    height:90px;
+    width:100%;
+    overflow: hidden;
+}
+
+.box-message
+{
+    position: absolute;
+    top:10px;
+    z-index:999;
+    width:90%;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
 /*
     custom navbar
 */
@@ -140,7 +159,7 @@ body{
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    bottom:0;
+    bottom:-52px;
 }
 
 .description-box > img
@@ -186,12 +205,12 @@ body{
 
 .img-articles
 {
-    border:1px solid #1d1d1d;
+    border:1px dashed #b4b4b4;
 }
 
 .img-comments
 {
-    border:1px solid #1d1d1d;
+    border:1px dashed #b4b4b4;
     float: left;
     margin-right: 8px;
     clear: both;

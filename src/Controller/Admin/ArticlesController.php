@@ -92,6 +92,22 @@ class ArticlesController extends AppController
         $article = $this->Articles->newEntity();
         if ($this->request->is('post')) {
             $this->request->data['user_id'] = $this->Auth->User('id');
+            if($this->request->data['picture_url']['name'])
+            {
+                $this->request->data['picture_url'] = $this->Upload->uploadImg($this->request->data['picture_url'],[
+                    'rename' => [
+                        'id' => $this->Auth->User('id')
+                    ],
+                    'resize' => [
+                        'small' => 100,
+                        'medium' => 320
+                    ],
+                    'directory' => 'articles'
+                ]);
+            }
+            else {
+                unset($this->request->data['picture_url']);
+            }
             $article = $this->Articles->patchEntity($article, $this->request->data);
             if ($this->Articles->save($article)) {
                 $this->Flash->success(__('The article has been saved.'));
@@ -119,6 +135,27 @@ class ArticlesController extends AppController
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            if($this->request->data['picture_url']['name'])
+            {
+                $image = $article->picture_url;
+                if($image !== 'default.jpg')
+                {
+                    $this->Upload->deleteImg($image,['sizes' => [100,320],'directory' => 'articles']);
+                }
+                $this->request->data['picture_url'] = $this->Upload->uploadImg($this->request->data['picture_url'],[
+                    'rename' => [
+                        'id' => $this->Auth->User('id')
+                    ],
+                    'resize' => [
+                        'small' => 100,
+                        'medium' => 320
+                    ],
+                    'directory' => 'articles'
+                ]);
+            }
+            else {
+                unset($this->request->data['picture_url']);
+            }
             $article = $this->Articles->patchEntity($article, $this->request->data);
             if ($this->Articles->save($article)) {
                 $this->Flash->success(__('The article has been saved.'));
@@ -153,7 +190,9 @@ class ArticlesController extends AppController
             $likes[] = $comment->id;
         }
         // condition IN
-        $this->Articles->Comments->Likes->deleteAll(['comment_id IN' => $likes]);
+        if(!empty($likes)) {
+            $this->Articles->Comments->Likes->deleteAll(['comment_id IN' => $likes]);
+        }
         // Then we delete all comments
         $this->Articles->Comments->deleteAll(['article_id' => $id]);
 

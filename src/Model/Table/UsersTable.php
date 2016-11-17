@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $Roles
  * @property \Cake\ORM\Association\HasMany $Articles
  * @property \Cake\ORM\Association\HasMany $Comments
- * @property \Cake\ORM\Association\HasMany $Likes
+ * @property \Cake\ORM\Association\HasMany $Loves
  *
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
  * @method \App\Model\Entity\User newEntity($data = null, array $options = [])
@@ -53,7 +53,7 @@ class UsersTable extends Table
         $this->hasMany('Comments', [
             'foreignKey' => 'user_id'
         ]);
-        $this->hasMany('Likes', [
+        $this->hasMany('Loves', [
             'foreignKey' => 'user_id'
         ]);
     }

@@ -4,15 +4,17 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Role Entity
+ * Love Entity
  *
  * @property int $id
- * @property string $name
- * @property string $description
+ * @property int $comment_id
+ * @property int $user_id
+ * @property bool $state
  *
- * @property \App\Model\Entity\User[] $users
+ * @property \App\Model\Entity\Comment $comment
+ * @property \App\Model\Entity\User $user
  */
-class Role extends Entity
+class Love extends Entity
 {
 
     /**

@@ -52,7 +52,7 @@ class ArticlesController extends AppController
         $this->paginate = [
             'limit' => 8
         ];
-        $comments = $this->paginate($this->Articles->Comments->find()->contain(['Users','Likes'])->where(['article_id' => $id])->orderDesc('Comments.created'));
+        $comments = $this->paginate($this->Articles->Comments->find()->contain(['Users','Loves'])->where(['article_id' => $id])->orderDesc('Comments.created'));
         $comment = $this->Articles->Comments->newEntity();
         if($this->request->is('post'))
         {

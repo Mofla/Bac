@@ -13,7 +13,7 @@ class CommentsController extends AppController
 {
     public function beforeFilter(Event $event)
     {
-        $this->Auth->allow(['add','view','edit','user']);
+        $this->Auth->allow(['add','view','edit','user','delete']);
         return parent::beforeFilter($event);
     }
 
@@ -45,7 +45,7 @@ class CommentsController extends AppController
     public function view($id = null)
     {
         $this->paginate = [
-            'contain' => ['Users','Likes'],
+            'contain' => ['Users','Loves'],
             'limit' => 10
         ];
         ($this->request->query['id'] != null) ? $id = $this->request->query['id'] : '';
@@ -63,7 +63,7 @@ class CommentsController extends AppController
                 'limit' => 5
             ];
             ($this->request->query['id'] != null) ? $id = $this->request->query['id'] : '';
-            $comments = $this->paginate($this->Comments->find()->contain(['Articles','Likes'])->where(['Comments.user_id' => $id])->orderDesc('Comments.created'));
+            $comments = $this->paginate($this->Comments->find()->contain(['Articles','Loves'])->where(['Comments.user_id' => $id])->orderDesc('Comments.created'));
 
             $this->set(compact('comments'));
             $this->set('_serialize', ['comments']);

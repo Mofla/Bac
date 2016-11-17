@@ -16,11 +16,14 @@ use Cake\ORM\Entity;
  * @property string $picture_url
  * @property int $role_id
  * @property int $is_active
+ * @property int $is_banned
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  *
  * @property \App\Model\Entity\Role $role
+ * @property \App\Model\Entity\Article[] $articles
  * @property \App\Model\Entity\Comment[] $comments
+ * @property \App\Model\Entity\Love[] $loves
  */
 class User extends Entity
 {

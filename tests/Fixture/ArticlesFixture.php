@@ -28,13 +28,13 @@ class ArticlesFixture extends TestFixture
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         '_indexes' => [
             'fk_tag_id' => ['type' => 'index', 'columns' => ['tag_id'], 'length' => []],
-            'fk_art_user_id' => ['type' => 'index', 'columns' => ['user_id'], 'length' => []],
+            'fk_arti_user_id' => ['type' => 'index', 'columns' => ['user_id'], 'length' => []],
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
             'id' => ['type' => 'unique', 'columns' => ['id'], 'length' => []],
             'name' => ['type' => 'unique', 'columns' => ['name'], 'length' => []],
-            'fk_art_user_id' => ['type' => 'foreign', 'columns' => ['user_id'], 'references' => ['users', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'fk_arti_user_id' => ['type' => 'foreign', 'columns' => ['user_id'], 'references' => ['users', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
             'fk_tag_id' => ['type' => 'foreign', 'columns' => ['tag_id'], 'references' => ['tags', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
@@ -58,8 +58,8 @@ class ArticlesFixture extends TestFixture
             'state' => 1,
             'user_id' => 1,
             'tag_id' => 1,
-            'created' => '2016-11-14 09:05:18',
-            'modified' => '2016-11-14 09:05:18'
+            'created' => '2016-11-17 15:13:58',
+            'modified' => '2016-11-17 15:13:58'
         ],
     ];
 }

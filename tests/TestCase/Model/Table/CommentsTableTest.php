@@ -28,7 +28,7 @@ class CommentsTableTest extends TestCase
         'app.articles',
         'app.users',
         'app.roles',
-        'app.likes',
+        'app.loves',
         'app.tags'
     ];
 

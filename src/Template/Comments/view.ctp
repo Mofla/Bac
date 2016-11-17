@@ -30,7 +30,7 @@
                     <div class="likes">
                         <?php $likes = ['up' => 0, 'down' => 0];
                         $canVote = true;
-                        foreach ($comment->likes as $like) {
+                        foreach ($comment->loves as $like) {
                             if ($like->state) {
                                 $likes['up'] += 1;
                             } else {
@@ -42,9 +42,9 @@
                             }
                         }
                         ?>
-                        <?= ($canVote && $this->request->session()->read('Auth.User.id') !== null) ? $this->Form->postLink('<span class="glyphicon glyphicon-thumbs-up"></span> J\'aime (' . $likes['up'] . ')', ['controller' => 'Likes', 'action' => 'thumb', $comment->id, 1], ['escape' => false, 'class' => 'btn btn-xs btn-success']) : '<span class="btn btn-xs btn-success"><span class="glyphicon glyphicon-thumbs-up"></span>' . ' (' . $likes['up'] . ') ont aimé</span>' ?>
+                        <?= ($canVote && $this->request->session()->read('Auth.User.id') !== null) ? $this->Form->postLink('<span class="glyphicon glyphicon-thumbs-up"></span> J\'aime (' . $likes['up'] . ')', ['controller' => 'Loves', 'action' => 'thumb', $comment->id, 1], ['escape' => false, 'class' => 'btn btn-xs btn-success']) : '<span class="btn btn-xs btn-success"><span class="glyphicon glyphicon-thumbs-up"></span>' . ' (' . $likes['up'] . ') ont aimé</span>' ?>
                         -
-                        <?= ($canVote && $this->request->session()->read('Auth.User.id') !== null) ? $this->Form->postLink('<span class="glyphicon glyphicon-thumbs-down"></span> Je n\'aime pas (' . $likes['down'] . ')', ['controller' => 'Likes', 'action' => 'thumb', $comment->id, 0], ['escape' => false, 'class' => 'btn btn-xs btn-danger']) : '<span class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-thumbs-down"></span>' . ' (' . $likes['down'] . ') n\'ont pas aimé</span>' ?>
+                        <?= ($canVote && $this->request->session()->read('Auth.User.id') !== null) ? $this->Form->postLink('<span class="glyphicon glyphicon-thumbs-down"></span> Je n\'aime pas (' . $likes['down'] . ')', ['controller' => 'Loves', 'action' => 'thumb', $comment->id, 0], ['escape' => false, 'class' => 'btn btn-xs btn-danger']) : '<span class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-thumbs-down"></span>' . ' (' . $likes['down'] . ') n\'ont pas aimé</span>' ?>
                     </div>
                     <p><?= h($comment->content) ?></p>
                 </div>
@@ -60,7 +60,7 @@
                             class="glyphicon glyphicon-edit"></span></button>
                     <button id="<?= $comment->id ?>" class="btn btn-xs btn-primary btn-comment-edit"><span
                             class="glyphicon glyphicon-edit"></span></button>
-                    <?= $this->Form->postLink('<span class="glyphicon glyphicon-trash"></span>', ['controller' => 'Comments', 'action' => 'delete', 'prefix' => 'admin', $comment->id], ['confirm' => 'Supprimer ce commentaire ?', 'class' => 'btn btn-xs btn-danger', 'escape' => false]) ?>
+                    <?= $this->Form->postLink('<span class="glyphicon glyphicon-trash"></span>', ['controller' => 'Comments', 'action' => 'delete', $comment->id], ['confirm' => 'Supprimer ce commentaire ?', 'class' => 'btn btn-xs btn-danger', 'escape' => false]) ?>
                 </div>
             <?php endif; ?>
 

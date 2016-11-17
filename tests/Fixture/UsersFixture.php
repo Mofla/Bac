@@ -63,8 +63,8 @@ class UsersFixture extends TestFixture
             'role_id' => 1,
             'is_active' => 1,
             'is_banned' => 1,
-            'created' => '2016-11-16 13:56:09',
-            'modified' => '2016-11-16 13:56:09'
+            'created' => '2016-11-17 15:14:01',
+            'modified' => '2016-11-17 15:14:01'
         ],
     ];
 }

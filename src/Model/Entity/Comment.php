@@ -16,7 +16,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Article $article
  * @property \App\Model\Entity\User $user
- * @property \App\Model\Entity\Like[] $likes
+ * @property \App\Model\Entity\Love[] $loves
  */
 class Comment extends Entity
 {

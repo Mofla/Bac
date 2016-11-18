@@ -13,7 +13,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = 'Blog de Mofla';
+$cakeDescription = '';
 ?>
 <!DOCTYPE html>
 <html>
@@ -22,6 +22,7 @@ $cakeDescription = 'Blog de Mofla';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         <?= $cakeDescription ?>
+        <?= $title ?>
     </title>
     <?= $this->Html->meta('icon') ?>
 

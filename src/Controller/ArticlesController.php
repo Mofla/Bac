@@ -26,9 +26,11 @@ class ArticlesController extends AppController
         if($id != null)
         {
             $articles = $this->paginate($this->Articles->find()->where(['Tags.id' => $id,'state' => 1])->orderDesc('Articles.created'));
+            $this->set('title','Articles : '.fromUrl($title));
         }
         else {
             $articles = $this->paginate($this->Articles->find()->where(['state' => 1])->orderDesc('Articles.created'));
+            $this->set('title','Blog de Mofla');
         }
 
 
@@ -72,6 +74,7 @@ class ArticlesController extends AppController
         $this->set('article', $article);
         $this->set(compact('comment','comments','canLike'));
         $this->set('_serialize', ['article','comment','comments']);
+        $this->set('title','Article : '.$article->name);
     }
 
     /**

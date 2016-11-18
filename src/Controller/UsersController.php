@@ -45,6 +45,7 @@ class UsersController extends AppController
         $this->paginate($comments);
 
         $this->set(compact('user','comments'));
+        $this->set('title','Profil de '.$user->username);
     }
 
     public function edit($id = null,$username = null)
@@ -80,6 +81,7 @@ class UsersController extends AppController
         }
         $this->set(compact('user'));
         $this->set('_serialize',['user']);
+        $this->set('title','Editer le profil de '.$user->username);
     }
 
     public function login()
@@ -102,6 +104,7 @@ class UsersController extends AppController
             }
 
         }
+        $this->set('title','Blog de Mofla : Connexion');
     }
 
     public function logout()
@@ -143,6 +146,7 @@ class UsersController extends AppController
         }
 
         $this->set(compact('users'));
+        $this->set('title','Blog de Mofla : Inscription');
     }
 
     public function retrieve()
@@ -173,6 +177,7 @@ class UsersController extends AppController
         $this->set(compact('user'));
         $this->set(compact('validateForm'));
         $this->set('_serialize',['user']);
+        $this->set('title','Blog de Mofla : Récupération du mot de passe');
     }
 
     public function validate($email=null)
@@ -198,6 +203,7 @@ class UsersController extends AppController
                 $this->Flash->error('Ce compte est déjà actif.');
             }
         }
+        $this->set('title','Blog de Mofla : Validation du compte');
     }
 
 

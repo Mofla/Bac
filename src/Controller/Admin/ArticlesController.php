@@ -24,6 +24,7 @@ class ArticlesController extends AppController
         $articles = $this->paginate($this->Articles->find()->where(['state' => $state]));
         $this->set(compact('articles'));
         $this->set('_serialize', ['articles']);
+        $this->set('title','Administration : Articles');
     }
 
     public function listajax($state=null)
@@ -80,6 +81,7 @@ class ArticlesController extends AppController
         $this->set('article', $article);
         $this->set(compact('comment','comments','canLike'));
         $this->set('_serialize', ['article','comment','comments']);
+        $this->set('title','Administration : Article '.$article->name);
     }
 
     /**
@@ -120,6 +122,7 @@ class ArticlesController extends AppController
         $tags = $this->Articles->Tags->find('list', ['limit' => 200]);
         $this->set(compact('article', 'tags'));
         $this->set('_serialize', ['article']);
+        $this->set('title','Administration : Ajouter un nouvel article');
     }
 
     /**
@@ -168,6 +171,7 @@ class ArticlesController extends AppController
         $tags = $this->Articles->Tags->find('list', ['limit' => 200]);
         $this->set(compact('article', 'tags'));
         $this->set('_serialize', ['article']);
+        $this->set('title','Administration : Edition de l\'article '.$article->name);
     }
 
     /**

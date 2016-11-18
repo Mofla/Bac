@@ -8,7 +8,7 @@
                 <?= $this->Form->create($article,['class' => 'form-group','type' => 'file']) ?>
                 <div class="col-xs-12 col-md-4">
                     <?= $this->Html->image('articles/320x320/default.jpg',['id' => 'file','class' => 'img-responsive img-thumbnail','width' => '320px','height' => '320px']) ?>
-                    <?= $this->Form->input('picture_url',['label' => 'Avatar','type' => 'file','id' => 'file_input','accept' => 'image/*','onchange' => 'imgPreview(event)']) ?>
+                    <?= $this->Form->input('picture_url',['label' => 'Photo','type' => 'file','id' => 'file_input','accept' => 'image/*','onchange' => 'imgPreview(event)']) ?>
                 </div>
                 <div class="col-xs-12 col-md-8">
                 <?php

@@ -25,6 +25,7 @@ class UsersController extends AppController
 
         $this->set(compact('users'));
         $this->set('_serialize', ['users']);
+        $this->set('title','Administration : Utilisateurs');
     }
 
     public function listajax($state=null)
@@ -61,6 +62,7 @@ class UsersController extends AppController
 
         $this->set('user', $user);
         $this->set('_serialize', ['user']);
+        $this->set('title','Administration : Profil de '.$user->username);
     }
 
     /**
@@ -126,6 +128,7 @@ class UsersController extends AppController
         }
         $this->set(compact('user'));
         $this->set('_serialize',['user']);
+        $this->set('title','Administration : Editer le profil de '.$user->username);
     }
 
     /**

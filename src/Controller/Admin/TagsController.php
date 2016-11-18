@@ -26,6 +26,7 @@ class TagsController extends AppController
 
         $this->set(compact('tags'));
         $this->set('_serialize', ['tags']);
+        $this->set('title','Administration : Catégories');
     }
 
     /**
@@ -43,6 +44,7 @@ class TagsController extends AppController
 
         $this->set('tag', $tag);
         $this->set('_serialize', ['tag']);
+        $this->set('title','Administration : Catégorie '.$tag->name);
     }
 
     /**
@@ -65,6 +67,7 @@ class TagsController extends AppController
         }
         $this->set(compact('tag'));
         $this->set('_serialize', ['tag']);
+        $this->set('title','Administration : Ajouter une catégorie');
     }
 
     /**
@@ -91,6 +94,7 @@ class TagsController extends AppController
         }
         $this->set(compact('tag'));
         $this->set('_serialize', ['tag']);
+        $this->set('title','Administration : Editer de la catégorie '.$tag->name);
     }
 
     /**

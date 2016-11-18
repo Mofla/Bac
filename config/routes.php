@@ -145,6 +145,11 @@ Router::prefix('admin', function ($routes) {
         'pass' => ['id','title'],
         'id' => '[0-9]+'
     ]);
+
+    $routes->connect('/commentaires/article/:id',['controller' => 'Comments','action' => 'gestion'],[
+        'pass' => ['id'],
+        'id' => '[0-9]+'
+    ]);
     $routes->fallbacks(DashedRoute::class);
 });
 

@@ -1,0 +1,3 @@
+Identifiants de connexion au compte administrateur :
+email : admin@admin.fr
+mot de passe : admin
